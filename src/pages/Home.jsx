@@ -5,10 +5,10 @@ import { news } from "../data/news";
 import {
   Search,
   BookOpen,
-  Calculator,
   ArrowLeftRight,
   Pill,
   Syringe,
+  ClipboardList,
   ChevronRight,
 } from "lucide-react";
 
@@ -37,10 +37,11 @@ const tools = [
   },
   {
     title: "Báo cáo Dược lâm sàng ngoại trú",
-    description: "Tổng kết hoạt động giám sát Dược lâm sàng ngoại trú theo tháng",
-    icon: Calculator,
+    description:
+      "Tổng kết hoạt động giám sát Dược lâm sàng ngoại trú theo tháng",
+    icon: ClipboardList,
     color: "purple",
-    path: "/scores",
+    path: "/report",
   },
   {
     title: "Thay thế thuốc",
