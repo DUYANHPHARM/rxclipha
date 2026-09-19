@@ -139,16 +139,28 @@ function App() {
 
         <header>
 
+  <div className="header-info">
 
-          <div className="user">
+    <div className="user">
 
-            <ShieldUser size={20} />
+      <ShieldUser size={20} />
 
-            Phát triển bởi DS. Nguyễn Duy Anh
+      Phát triển bởi DS. Nguyễn Duy Anh
 
-          </div>
+    </div>
 
-        </header>
+
+    <div className="hospital">
+
+      <ShieldUser size={20} />
+
+      BỆNH VIỆN ĐA KHOA BÌNH THẠNH
+
+    </div>
+
+  </div>
+
+</header>
 
         <Routes>
 
