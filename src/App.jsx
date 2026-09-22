@@ -5,6 +5,7 @@ import "./App.css";
 import Home from "./pages/Home";
 import Interaction from "./pages/Interaction";
 import Report from "./pages/Report";
+import News from "./pages/News";
 
 import {
   House,
@@ -20,6 +21,8 @@ import {
   Send,
   Bot,
   ClipboardList,
+  Newspaper,
+
 
 } from "lucide-react";
 
@@ -57,6 +60,16 @@ function App() {
 >
   <House size={20} />
   Trang chủ
+</NavLink>
+
+<NavLink
+  to="/news"
+  className={({ isActive }) =>
+    isActive ? "menu-item active" : "menu-item"
+  }
+>
+  <Newspaper size={21} />
+  <span>Tin mới</span>
 </NavLink>
 
          <NavLink
@@ -178,6 +191,8 @@ function App() {
             path="/report"
             element={<Report />}
           />
+
+          <Route path="/news" element={<News />} />
 
         </Routes>
 
