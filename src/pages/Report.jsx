@@ -16,7 +16,6 @@ import {
 const API_URL =
   "https://script.google.com/macros/s/AKfycbzX_ibLbT_-rz6f5z6i_MV5am4B_lEWwR6HwdpqVj3QYNljZC9SJ00Uvx2-y4pmLpnWDg/exec";
 
-
 // ===============================
 // CHUYỂN LINK GOOGLE DRIVE
 // ===============================
@@ -43,14 +42,12 @@ function convertDriveUrl(url) {
   return value;
 }
 
-
 // ===============================
 // LẤY DỮ LIỆU TỪ GOOGLE SHEETS
 // ===============================
 
 function loadReports() {
   return new Promise((resolve, reject) => {
-
     const callbackName =
       "rxcliphaReportsCallback";
 
@@ -59,7 +56,6 @@ function loadReports() {
 
     const timeout =
       setTimeout(() => {
-
         cleanup();
 
         reject(
@@ -67,33 +63,39 @@ function loadReports() {
             "Không thể kết nối đến Google Sheets."
           )
         );
-
       }, 15000);
 
-
     function cleanup() {
-
       clearTimeout(timeout);
 
       if (script.parentNode) {
         script.parentNode.removeChild(script);
       }
 
-      delete window[callbackName];
+      try {
+        delete window[callbackName];
+      } catch {
+        window[callbackName] = undefined;
+      }
     }
 
-
     window[callbackName] = (data) => {
-
       cleanup();
 
-      resolve(data);
+      if (!Array.isArray(data)) {
+        reject(
+          new Error(
+            "Dữ liệu báo cáo không hợp lệ."
+          )
+        );
 
+        return;
+      }
+
+      resolve(data);
     };
 
-
     script.onerror = () => {
-
       cleanup();
 
       reject(
@@ -101,18 +103,21 @@ function loadReports() {
           "Không thể tải dữ liệu báo cáo từ Google Sheets."
         )
       );
-
     };
 
+    // ===============================
+    // QUAN TRỌNG:
+    // Gửi callback lên Apps Script
+    // ===============================
 
-    // Không truyền ?callback=
-    script.src = API_URL;
+    script.src =
+      `${API_URL}?callback=${encodeURIComponent(
+        callbackName
+      )}&_=${Date.now()}`;
 
     document.body.appendChild(script);
-
   });
 }
-
 
 // ===============================
 // DANH SÁCH THÁNG
@@ -133,13 +138,11 @@ const months = [
   "12",
 ];
 
-
 // ===============================
 // COMPONENT
 // ===============================
 
 export default function Report() {
-
   const hasLoaded = useRef(false);
 
   const [reports, setReports] = useState([]);
@@ -150,36 +153,30 @@ export default function Report() {
   const [selectedMonth, setSelectedMonth] =
     useState("");
 
-
   const [loading, setLoading] =
     useState(true);
 
   const [error, setError] =
     useState("");
 
-
-
   // ===============================
   // TẢI DỮ LIỆU
   // ===============================
 
   useEffect(() => {
+    if (hasLoaded.current) {
+      return;
+    }
 
-  if (hasLoaded.current) {
-    return;
-  }
+    hasLoaded.current = true;
 
-  hasLoaded.current = true;
-
-
-  async function fetchReports() {
-
+    async function fetchReports() {
       try {
-
         setLoading(true);
         setError("");
 
-        const data = await loadReports();
+        const data =
+          await loadReports();
 
         if (!Array.isArray(data)) {
           throw new Error(
@@ -189,7 +186,6 @@ export default function Report() {
 
         setReports(data);
 
-
         // ===============================
         // LẤY DANH SÁCH NĂM
         // ===============================
@@ -198,64 +194,51 @@ export default function Report() {
           ...new Set(
             data
               .map((item) =>
-                String(item.Nam || "").trim()
+                String(
+                  item.Nam || ""
+                ).trim()
               )
               .filter(Boolean)
           ),
         ].sort();
 
-
         if (years.length > 0) {
-
           setSelectedYear(years[0]);
 
           // Tìm tháng đầu tiên có báo cáo
           const firstReport =
             data.find(
               (item) =>
-                String(item.Nam).trim() === years[0] &&
+                String(item.Nam)
+                  .trim() ===
+                  years[0] &&
                 item.FilePDF
             );
 
-
           if (firstReport) {
-
             setSelectedMonth(
-              String(firstReport.Thang)
-                .padStart(2, "0")
+              String(
+                firstReport.Thang
+              ).padStart(2, "0")
             );
-
           } else {
-
             setSelectedMonth("01");
-
           }
-
         }
-
       } catch (err) {
-
         console.error(err);
 
         setError(
           err.message ||
-          "Không thể tải dữ liệu báo cáo."
+            "Không thể tải dữ liệu báo cáo."
         );
-
       } finally {
-
         setLoading(false);
-
       }
-
     }
 
-
     fetchReports();
-
   }, []);
-
-
 
   // ===============================
   // DANH SÁCH NĂM
@@ -265,13 +248,13 @@ export default function Report() {
     ...new Set(
       reports
         .map((item) =>
-          String(item.Nam || "").trim()
+          String(
+            item.Nam || ""
+          ).trim()
         )
         .filter(Boolean)
     ),
   ].sort();
-
-
 
   // ===============================
   // BÁO CÁO HIỆN TẠI
@@ -279,12 +262,15 @@ export default function Report() {
 
   const currentReport =
     reports.find((item) => {
-
       const year =
-        String(item.Nam || "").trim();
+        String(
+          item.Nam || ""
+        ).trim();
 
       const month =
-        String(item.Thang || "")
+        String(
+          item.Thang || ""
+        )
           .trim()
           .padStart(2, "0");
 
@@ -293,61 +279,45 @@ export default function Report() {
         month === selectedMonth &&
         item.FilePDF
       );
-
     });
-
-
 
   // ===============================
   // XỬ LÝ KHI ĐỔI NĂM
   // ===============================
 
   function handleYearChange(e) {
-
     const year = e.target.value;
 
     setSelectedYear(year);
-
 
     // Tìm tháng đầu tiên có báo cáo
     const firstReport =
       reports.find(
         (item) =>
-          String(item.Nam).trim() === year &&
+          String(item.Nam)
+            .trim() === year &&
           item.FilePDF
       );
 
-
     if (firstReport) {
-
       setSelectedMonth(
         String(firstReport.Thang)
           .trim()
           .padStart(2, "0")
       );
-
     } else {
-
       setSelectedMonth("01");
-
     }
-
   }
-
-
 
   // ===============================
   // LOADING
   // ===============================
 
   if (loading) {
-
     return (
-
       <div className="report-page">
-
         <div className="empty-report">
-
           <FileText size={64} />
 
           <h2>
@@ -357,29 +327,19 @@ export default function Report() {
           <p>
             Đang kết nối với hệ thống báo cáo.
           </p>
-
         </div>
-
       </div>
-
     );
-
   }
-
-
 
   // ===============================
   // ERROR
   // ===============================
 
   if (error) {
-
     return (
-
       <div className="report-page">
-
         <div className="empty-report">
-
           <Eye size={64} />
 
           <h2>
@@ -389,25 +349,17 @@ export default function Report() {
           <p>
             {error}
           </p>
-
         </div>
-
       </div>
-
     );
-
   }
-
-
 
   // ===============================
   // GIAO DIỆN
   // ===============================
 
   return (
-
     <div className="report-page">
-
 
       {/* =========================
           HEADER
@@ -416,18 +368,14 @@ export default function Report() {
       <div className="report-banner">
 
         <div className="banner-icon">
-
           <FileText size={34} />
-
         </div>
-
 
         <div>
 
           <h1>
             Báo cáo Dược lâm sàng ngoại trú
           </h1>
-
 
           <p>
             Hệ thống lưu trữ và tra cứu báo cáo
@@ -438,8 +386,6 @@ export default function Report() {
         </div>
 
       </div>
-
-
 
       {/* =========================
           SELECT NĂM
@@ -456,7 +402,6 @@ export default function Report() {
             Chọn năm
 
           </label>
-
 
           <div className="select-wrapper">
 
@@ -478,7 +423,6 @@ export default function Report() {
 
             </select>
 
-
             <ChevronDown size={18} />
 
           </div>
@@ -487,21 +431,17 @@ export default function Report() {
 
       </div>
 
-
-
       {/* =========================
           CONTENT
       ========================== */}
 
       <div className="report-layout">
 
-
         {/* =========================
             DANH SÁCH THÁNG
         ========================== */}
 
         <aside className="month-panel">
-
 
           <div className="month-title">
 
@@ -513,22 +453,22 @@ export default function Report() {
 
           </div>
 
-
-
           <div className="month-list">
 
             {months.map((month) => {
-
 
               const exist =
                 reports.find((item) => {
 
                   const year =
-                    String(item.Nam || "")
-                      .trim();
+                    String(
+                      item.Nam || ""
+                    ).trim();
 
                   const itemMonth =
-                    String(item.Thang || "")
+                    String(
+                      item.Thang || ""
+                    )
                       .trim()
                       .padStart(2, "0");
 
@@ -537,22 +477,16 @@ export default function Report() {
                     itemMonth === month &&
                     item.FilePDF
                   );
-
                 });
 
-
-
               return (
-
                 <button
                   key={month}
-
                   className={
                     selectedMonth === month
                       ? "month-item active"
                       : "month-item"
                   }
-
                   onClick={() =>
                     setSelectedMonth(month)
                   }
@@ -564,42 +498,31 @@ export default function Report() {
                       Tháng {month}
                     </strong>
 
-
                     <span>
-
                       {exist
                         ? "Đã có báo cáo"
                         : "Chưa cập nhật"}
-
                     </span>
 
                   </div>
 
-
                   {exist && (
-
                     <FileText size={18} />
-
                   )}
 
                 </button>
-
               );
-
             })}
 
           </div>
 
         </aside>
 
-
-
         {/* =========================
             PDF VIEWER
         ========================== */}
 
         <section className="report-viewer">
-
 
           {currentReport ? (
 
@@ -608,7 +531,6 @@ export default function Report() {
               {/* HEADER PDF */}
 
               <div className="viewer-header">
-
 
                 <div>
 
@@ -620,7 +542,6 @@ export default function Report() {
 
                   </div>
 
-
                   <h2>
 
                     {currentReport.TieuDe ||
@@ -630,17 +551,12 @@ export default function Report() {
 
                 </div>
 
-
-
                 <a
                   href={convertDriveUrl(
                     currentReport.FilePDF
                   )}
-
                   target="_blank"
-
                   rel="noopener noreferrer"
-
                   className="download-btn"
                 >
 
@@ -652,8 +568,6 @@ export default function Report() {
 
               </div>
 
-
-
               {/* PDF */}
 
               <div className="pdf-container">
@@ -662,16 +576,12 @@ export default function Report() {
                   src={convertDriveUrl(
                     currentReport.FilePDF
                   )}
-
                   title={
                     currentReport.TieuDe ||
                     "Báo cáo Dược lâm sàng ngoại trú"
                   }
-
                   width="100%"
-
                   height="100%"
-
                   style={{
                     border: "none",
                   }}
@@ -687,11 +597,9 @@ export default function Report() {
 
               <Eye size={64} />
 
-
               <h2>
                 Chưa có báo cáo
               </h2>
-
 
               <p>
                 Tháng này chưa được cập nhật
@@ -707,7 +615,5 @@ export default function Report() {
       </div>
 
     </div>
-
   );
-
 }
