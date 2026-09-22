@@ -1,5 +1,6 @@
 import "./Interaction.css";
 import { useEffect, useRef, useState } from "react";
+
 import {
   Search,
   Plus,
@@ -60,6 +61,10 @@ function getSeverityIcon(severity, size = 30) {
   }
 }
 
+/* =========================================================
+   TẢI DỮ LIỆU TỪ GOOGLE SHEETS BẰNG JSONP
+   ========================================================= */
+
 function loadInteractions() {
   return new Promise((resolve, reject) => {
     const callbackName =
@@ -84,7 +89,11 @@ function loadInteractions() {
         script.parentNode.removeChild(script);
       }
 
-      delete window[callbackName];
+      try {
+        delete window[callbackName];
+      } catch {
+        window[callbackName] = undefined;
+      }
     }
 
     window[callbackName] = (data) => {
@@ -113,7 +122,14 @@ function loadInteractions() {
       );
     };
 
-    script.src = `${API_URL}?type=interactions`;
+    /*
+     * QUAN TRỌNG:
+     * Phải gửi callback lên Apps Script.
+     */
+    script.src =
+      `${API_URL}?type=interactions&callback=${encodeURIComponent(
+        callbackName
+      )}&_=${Date.now()}`;
 
     document.body.appendChild(script);
   });
@@ -124,7 +140,6 @@ export default function Interaction() {
   const [drugs, setDrugs] = useState([]);
   const [analyzed, setAnalyzed] = useState(false);
 
-  // Chỉ còn 2 chế độ:
   // ingredient = Nhập hoạt chất
   // lookup = Tra cứu
   const [mode, setMode] = useState("ingredient");
@@ -146,9 +161,9 @@ export default function Interaction() {
 
   const hasLoaded = useRef(false);
 
-  // =========================================================
-  // TẢI DỮ LIỆU GOOGLE SHEET
-  // =========================================================
+  /* =========================================================
+     TẢI DỮ LIỆU GOOGLE SHEET
+     ========================================================= */
 
   useEffect(() => {
     if (hasLoaded.current) return;
@@ -196,9 +211,9 @@ export default function Interaction() {
     fetchInteractions();
   }, []);
 
-  // =========================================================
-  // DANH SÁCH HOẠT CHẤT
-  // =========================================================
+  /* =========================================================
+     DANH SÁCH HOẠT CHẤT
+     ========================================================= */
 
   const drugSuggestions =
     Array.from(
@@ -221,9 +236,9 @@ export default function Interaction() {
         a.localeCompare(b, "vi")
       );
 
-  // =========================================================
-  // THÊM HOẠT CHẤT
-  // =========================================================
+  /* =========================================================
+     THÊM HOẠT CHẤT
+     ========================================================= */
 
   const addDrug = () => {
     const value = drug.trim();
@@ -252,9 +267,9 @@ export default function Interaction() {
     setAnalyzed(false);
   };
 
-  // =========================================================
-  // XÓA HOẠT CHẤT
-  // =========================================================
+  /* =========================================================
+     XÓA HOẠT CHẤT
+     ========================================================= */
 
   const removeDrug = (index) => {
     setDrugs(
@@ -266,9 +281,9 @@ export default function Interaction() {
     setAnalyzed(false);
   };
 
-  // =========================================================
-  // XÓA TOÀN BỘ
-  // =========================================================
+  /* =========================================================
+     XÓA TOÀN BỘ
+     ========================================================= */
 
   const clearAll = () => {
     setDrugs([]);
@@ -276,9 +291,9 @@ export default function Interaction() {
     setAnalyzed(false);
   };
 
-  // =========================================================
-  // TÌM TƯƠNG TÁC 2 CHIỀU
-  // =========================================================
+  /* =========================================================
+     TÌM TƯƠNG TÁC 2 CHIỀU
+     ========================================================= */
 
   const findInteraction = (
     drugA,
@@ -312,9 +327,9 @@ export default function Interaction() {
     );
   };
 
-  // =========================================================
-  // PHÂN TÍCH
-  // =========================================================
+  /* =========================================================
+     PHÂN TÍCH
+     ========================================================= */
 
   const handleAnalyze = () => {
     if (drugs.length < 2)
@@ -323,9 +338,9 @@ export default function Interaction() {
     setAnalyzed(true);
   };
 
-  // =========================================================
-  // TRA CỨU 1 HOẠT CHẤT
-  // =========================================================
+  /* =========================================================
+     TRA CỨU 1 HOẠT CHẤT
+     ========================================================= */
 
   const handleLookup = () => {
     const value =
@@ -363,9 +378,9 @@ export default function Interaction() {
     });
   };
 
-  // =========================================================
-  // TẠO DANH SÁCH CẶP THUỐC
-  // =========================================================
+  /* =========================================================
+     TẠO DANH SÁCH CẶP THUỐC
+     ========================================================= */
 
   const analyzedInteractions =
     [];
@@ -455,7 +470,7 @@ export default function Interaction() {
           </div>
 
           {/* ================================================= */}
-          {/* TAB - CHỈ CÒN 2 TAB */}
+          {/* TAB */}
           {/* ================================================= */}
 
           <div className="tabs">
