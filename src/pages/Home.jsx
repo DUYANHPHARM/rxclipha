@@ -21,7 +21,7 @@ import {
 import { useEffect, useState } from "react";
 
 const NEWS_API_URL =
-  "https://script.google.com/macros/s/AKfycbzX_ibLbT_-rz6f5z6i_MV5am4B_lEWwR6HwdpqVj3QYNljZC9SJ00Uvx2-y4pmLpnWDg/exec?type=news";
+  "https://script.google.com/macros/s/AKfycbzX_ibLbT_-rz6f5z6i_MV5am4B_lEWwR6HwdpqVj3QYNljZC9SJ00Uvx2-y4pmLpnWDg/exec";
 
 /* =========================================================
    CÔNG CỤ
@@ -125,6 +125,8 @@ function formatDate(value) {
 
   const text = String(value).trim();
 
+  if (!text) return "";
+
   const match = text.match(
     /^(\d{4})-(\d{2})-(\d{2})/
   );
@@ -208,7 +210,11 @@ function loadNews() {
         script.parentNode.removeChild(script);
       }
 
-      delete window[callbackName];
+      try {
+        delete window[callbackName];
+      } catch {
+        window[callbackName] = undefined;
+      }
     }
 
     window[callbackName] = (data) => {
@@ -237,7 +243,17 @@ function loadNews() {
       );
     };
 
-    script.src = NEWS_API_URL;
+    /* =====================================================
+       QUAN TRỌNG:
+       Gửi callback lên Google Apps Script
+    ===================================================== */
+
+    script.src =
+      `${NEWS_API_URL}?type=news&callback=${encodeURIComponent(
+        callbackName
+      )}&_=${Date.now()}`;
+
+    script.async = true;
 
     document.body.appendChild(script);
   });
