@@ -70,19 +70,22 @@ const newsGroups = [
 
 function loadNews() {
   return new Promise((resolve, reject) => {
-    const callbackName = "rxcliphaNewsCallback";
+    const callbackName =
+      "rxcliphaNewsCallback";
 
-    const script = document.createElement("script");
+    const script =
+      document.createElement("script");
 
-    const timeout = setTimeout(() => {
-      cleanup();
+    const timeout =
+      setTimeout(() => {
+        cleanup();
 
-      reject(
-        new Error(
-          "Không thể kết nối đến Google Sheets."
-        )
-      );
-    }, 15000);
+        reject(
+          new Error(
+            "Không thể kết nối đến Google Sheets."
+          )
+        );
+      }, 15000);
 
     function cleanup() {
       clearTimeout(timeout);
@@ -91,7 +94,11 @@ function loadNews() {
         script.parentNode.removeChild(script);
       }
 
-      delete window[callbackName];
+      try {
+        delete window[callbackName];
+      } catch {
+        window[callbackName] = undefined;
+      }
     }
 
     window[callbackName] = (data) => {
@@ -121,11 +128,14 @@ function loadNews() {
     };
 
     /*
-      Thêm timestamp để tránh cache
-    */
+     * QUAN TRỌNG:
+     * Phải truyền callback lên Apps Script.
+     */
 
     script.src =
-      `${API_URL}?type=news&_=${Date.now()}`;
+      `${API_URL}?type=news&callback=${encodeURIComponent(
+        callbackName
+      )}&_=${Date.now()}`;
 
     script.async = true;
 
@@ -156,7 +166,9 @@ function formatDate(value) {
   }
 
   if (
-    /^\d{1,2}\/\d{1,2}\/\d{4}$/.test(text)
+    /^\d{1,2}\/\d{1,2}\/\d{4}$/.test(
+      text
+    )
   ) {
     return text;
   }
@@ -296,14 +308,13 @@ function convertDriveUrl(
 ===================================================== */
 
 export default function News() {
-
   /*
-    Lấy title từ URL.
-
-    Ví dụ:
-
-    /news?title=Thông%20báo%20thuốc%20mới
-  */
+   * Lấy title từ URL.
+   *
+   * Ví dụ:
+   *
+   * /news?title=Thông%20báo%20thuốc%20mới
+   */
 
   const [searchParams] =
     useSearchParams();
@@ -315,9 +326,9 @@ export default function News() {
     useState("Tất cả");
 
   /*
-    Lưu tiêu đề tin đang mở
-    thay vì index.
-  */
+   * Lưu tiêu đề tin đang mở
+   * thay vì index.
+   */
 
   const [openNews, setOpenNews] =
     useState(null);
@@ -335,8 +346,8 @@ export default function News() {
     useRef(false);
 
   /*
-    Tránh useEffect mở tin nhiều lần
-  */
+   * Tránh useEffect mở tin nhiều lần
+   */
 
   const hasOpenedTarget =
     useRef(false);
@@ -346,7 +357,6 @@ export default function News() {
   =================================================== */
 
   useEffect(() => {
-
     if (hasLoaded.current) {
       return;
     }
@@ -354,25 +364,21 @@ export default function News() {
     hasLoaded.current = true;
 
     async function fetchNews() {
-
       try {
-
         setLoading(true);
-
         setLoadError("");
 
         const data =
           await loadNews();
 
         /*
-          Chỉ hiển thị tin:
-
-          TrangThai = Đang hiển thị
-        */
+         * Chỉ hiển thị tin:
+         *
+         * TrangThai = Đang hiển thị
+         */
 
         const activeNews =
           data.filter((item) => {
-
             const status =
               String(
                 item.TrangThai || ""
@@ -384,22 +390,18 @@ export default function News() {
           });
 
         /*
-          Tin mới nhất lên đầu
-        */
+         * Tin mới nhất lên đầu
+         */
 
         activeNews.sort((a, b) => {
-
           return (
             getDateValue(b.Ngay) -
             getDateValue(a.Ngay)
           );
-
         });
 
         setNews(activeNews);
-
       } catch (error) {
-
         console.error(
           "Lỗi tải tin mới:",
           error
@@ -407,18 +409,14 @@ export default function News() {
 
         setLoadError(
           error.message ||
-          "Không thể tải dữ liệu tin mới."
+            "Không thể tải dữ liệu tin mới."
         );
-
       } finally {
-
         setLoading(false);
-
       }
     }
 
     fetchNews();
-
   }, []);
 
   /* ===================================================
@@ -426,7 +424,6 @@ export default function News() {
   =================================================== */
 
   useEffect(() => {
-
     if (
       !targetTitle ||
       news.length === 0 ||
@@ -436,8 +433,8 @@ export default function News() {
     }
 
     /*
-      Tìm tin theo tiêu đề
-    */
+     * Tìm tin theo tiêu đề
+     */
 
     const targetNews =
       news.find(
@@ -451,16 +448,16 @@ export default function News() {
       );
 
     /*
-      Không tìm thấy
-    */
+     * Không tìm thấy
+     */
 
     if (!targetNews) {
       return;
     }
 
     /*
-      Xác định nhóm của tin
-    */
+     * Xác định nhóm của tin
+     */
 
     const targetGroup =
       String(
@@ -468,14 +465,13 @@ export default function News() {
       ).trim();
 
     /*
-      Nếu hiện tại chưa ở đúng nhóm
-      thì chuyển sang nhóm đó trước.
-    */
+     * Nếu hiện tại chưa ở đúng nhóm
+     * thì chuyển sang nhóm đó trước.
+     */
 
     if (
       selectedGroup !== targetGroup
     ) {
-
       setSelectedGroup(
         targetGroup
       );
@@ -484,8 +480,8 @@ export default function News() {
     }
 
     /*
-      Mở đúng tin
-    */
+     * Mở đúng tin
+     */
 
     setOpenNews(
       targetNews.TieuDe
@@ -493,7 +489,6 @@ export default function News() {
 
     hasOpenedTarget.current =
       true;
-
   }, [
     news,
     selectedGroup,
@@ -522,13 +517,11 @@ export default function News() {
   const toggleNews = (
     title
   ) => {
-
     setOpenNews(
       openNews === title
         ? null
         : title
     );
-
   };
 
   /* ===================================================
@@ -536,7 +529,6 @@ export default function News() {
   =================================================== */
 
   return (
-
     <div className="news-page">
 
       {/* =============================================
@@ -587,18 +579,14 @@ export default function News() {
                 : "news-filter"
             }
             onClick={() => {
-
               setSelectedGroup(
                 "Tất cả"
               );
 
               setOpenNews(null);
-
             }}
           >
-
             Tất cả
-
           </button>
 
           {/* =====================================
@@ -607,12 +595,10 @@ export default function News() {
 
           {newsGroups.map(
             (group) => {
-
               const Icon =
                 group.icon;
 
               return (
-
                 <button
                   key={group.name}
                   className={
@@ -622,7 +608,6 @@ export default function News() {
                       : "news-filter"
                   }
                   onClick={() => {
-
                     setSelectedGroup(
                       group.name
                     );
@@ -630,20 +615,15 @@ export default function News() {
                     setOpenNews(
                       null
                     );
-
                   }}
                 >
-
                   <Icon
                     size={17}
                   />
 
                   {group.name}
-
                 </button>
-
               );
-
             }
           )}
 
@@ -662,20 +642,16 @@ export default function News() {
           <div>
 
             <h2>
-
               {selectedGroup ===
               "Tất cả"
                 ? "Tất cả tin mới"
                 : selectedGroup}
-
             </h2>
 
             <p>
-
               {loading
                 ? "Đang tải..."
                 : `${filteredNews.length} thông tin`}
-
             </p>
 
           </div>
@@ -687,7 +663,6 @@ export default function News() {
         ========================================= */}
 
         {loading && (
-
           <div className="news-empty">
 
             <Bell
@@ -704,7 +679,6 @@ export default function News() {
             </p>
 
           </div>
-
         )}
 
         {/* =========================================
@@ -713,7 +687,6 @@ export default function News() {
 
         {!loading &&
           loadError && (
-
             <div className="news-empty">
 
               <AlertTriangle
@@ -729,7 +702,6 @@ export default function News() {
               </p>
 
             </div>
-
           )}
 
         {/* =========================================
@@ -739,7 +711,6 @@ export default function News() {
         {!loading &&
           !loadError &&
           filteredNews.length === 0 && (
-
             <div className="news-empty">
 
               <Bell
@@ -756,7 +727,6 @@ export default function News() {
               </p>
 
             </div>
-
           )}
 
         {/* =========================================
@@ -790,8 +760,8 @@ export default function News() {
                     Bell;
 
                   /*
-                    Tin đang mở
-                  */
+                   * Tin đang mở
+                   */
 
                   const isOpen =
                     openNews ===
@@ -822,7 +792,6 @@ export default function News() {
                       : "";
 
                   return (
-
                     <div
                       className={
                         isOpen
@@ -1080,19 +1049,15 @@ export default function News() {
                       )}
 
                     </div>
-
                   );
-
                 }
               )}
 
             </div>
-
           )}
 
       </div>
 
     </div>
-
   );
 }
