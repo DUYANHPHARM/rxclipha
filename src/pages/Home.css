@@ -1,0 +1,913 @@
+/* =========================================================
+   HOME PAGE
+========================================================= */
+
+.home {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   BANNER
+========================================================= */
+
+.banner {
+  position: relative;
+
+  width: 100%;
+  min-height: 270px;
+
+  padding: 42px 40px;
+
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  overflow: hidden;
+
+  border-radius: 30px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #145aa6 0%,
+      #087abf 50%,
+      #10a6d2 100%
+    );
+
+  color: #ffffff;
+
+  box-shadow:
+    0 16px 35px
+    rgba(30, 80, 150, 0.16);
+}
+
+.banner::before {
+  content: "";
+
+  position: absolute;
+
+  width: 300px;
+  height: 300px;
+
+  left: -80px;
+  bottom: -150px;
+
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.10);
+}
+
+.banner::after {
+  content: "";
+
+  position: absolute;
+
+  width: 310px;
+  height: 310px;
+
+  right: -80px;
+  top: -150px;
+
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.10);
+}
+
+.banner h1,
+.banner h3,
+.banner p {
+  position: relative;
+  z-index: 1;
+}
+
+.banner h1 {
+  margin: 0 0 8px;
+
+  font-size: 50px;
+
+  line-height: 1.05;
+
+  font-weight: 800;
+
+  color: #ffffff;
+}
+
+.banner h3 {
+  margin: 0 0 15px;
+
+  font-size: 25px;
+
+  line-height: 1.3;
+
+  font-weight: 700;
+
+  color: #ffffff;
+}
+
+.banner p {
+  max-width: 950px;
+
+  margin: 0;
+
+  font-size: 16px;
+
+  line-height: 1.55;
+
+  color: rgba(255, 255, 255, 0.96);
+}
+
+
+/* =========================================================
+   TIN MỚI - KHUNG CHÍNH
+========================================================= */
+
+.news-banner {
+  width: 100%;
+
+  margin-top: 34px;
+
+  padding: 26px 30px;
+
+  box-sizing: border-box;
+
+  background: #ffffff;
+
+  border: 1px solid #dce6f1;
+
+  border-radius: 25px;
+
+  box-shadow:
+    0 8px 25px
+    rgba(31, 65, 100, 0.06);
+}
+
+
+/* =========================================================
+   HEADER TIN MỚI
+========================================================= */
+
+.news-title {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 20px;
+
+  margin-bottom: 20px;
+}
+
+.news-title h2 {
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  margin: 0;
+
+  color: #243b5a;
+
+  font-size: 27px;
+
+  line-height: 1.2;
+
+  font-weight: 800;
+}
+
+.news-view-all {
+  color: #0868b5;
+
+  text-decoration: none;
+
+  font-size: 16px;
+
+  font-weight: 700;
+
+  white-space: nowrap;
+
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.news-view-all:hover {
+  color: #034d8a;
+
+  transform: translateX(2px);
+}
+
+
+/* =========================================================
+   KHU VỰC DANH SÁCH
+========================================================= */
+
+.news-list {
+  width: 100%;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 12px;
+}
+
+
+/* =========================================================
+   ĐANG TẢI / LỖI / KHÔNG CÓ TIN
+
+   CỐ Ý ĐỂ Ở GIỮA
+========================================================= */
+
+.home-news-loading {
+  width: 100%;
+
+  min-height: 220px;
+
+  padding: 25px 20px;
+
+  box-sizing: border-box;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  text-align: center;
+
+  background: #eef8ff;
+
+  border-radius: 20px;
+}
+
+.home-news-loading-icon {
+  color: #91a7c0;
+
+  margin-bottom: 15px;
+
+  stroke-width: 1.8;
+
+  animation:
+    newsBellPulse
+    1.6s
+    ease-in-out
+    infinite;
+}
+
+.home-news-loading-icon.error {
+  color: #91a7c0;
+
+  animation: none;
+}
+
+.home-news-loading h3 {
+  margin: 0 0 6px;
+
+  color: #40536d;
+
+  font-size: 22px;
+
+  line-height: 1.3;
+
+  font-weight: 700;
+}
+
+.home-news-loading p {
+  margin: 0;
+
+  color: #91a4ba;
+
+  font-size: 16px;
+
+  line-height: 1.5;
+
+  font-weight: 400;
+}
+
+@keyframes newsBellPulse {
+  0%,
+  100% {
+    opacity: 0.65;
+
+    transform: translateY(0);
+  }
+
+  50% {
+    opacity: 1;
+
+    transform: translateY(-3px);
+  }
+}
+
+
+/* =========================================================
+   TỪNG TIN
+========================================================= */
+
+.news-item {
+  position: relative;
+
+  display: flex;
+
+  align-items: center;
+
+  width: 100%;
+
+  min-height: 108px;
+
+  padding: 17px 20px;
+
+  box-sizing: border-box;
+
+  text-decoration: none;
+
+  border-radius: 18px;
+
+  overflow: hidden;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.news-item:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 8px 20px
+    rgba(30, 70, 110, 0.08);
+}
+
+
+/* =========================================================
+   MÀU PASTEL THEO NHÓM TIN
+========================================================= */
+
+.news-item {
+  background: #eef8ff;
+}
+
+.news-item:nth-child(2n) {
+  background: #f5f1ff;
+}
+
+
+/* =========================================================
+   ICON TIN
+========================================================= */
+
+.news-item-icon {
+  width: 58px;
+  height: 58px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  margin-right: 18px;
+
+  border-radius: 16px;
+
+  background: rgba(255, 255, 255, 0.78);
+
+  color: #0868b5;
+}
+
+.news-item-icon svg {
+  stroke-width: 1.9;
+}
+
+
+/* =========================================================
+   NỘI DUNG TIN
+========================================================= */
+
+.news-item-main {
+  min-width: 0;
+
+  flex: 1;
+}
+
+.news-item-meta {
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  margin-bottom: 5px;
+}
+
+.news-category {
+  color: #0868b5;
+
+  font-size: 13px;
+
+  line-height: 1.3;
+
+  font-weight: 750;
+}
+
+.news-date {
+  display: flex;
+
+  align-items: center;
+
+  gap: 5px;
+
+  color: #94a7bd;
+
+  font-size: 13px;
+
+  line-height: 1.3;
+}
+
+.news-date svg {
+  flex-shrink: 0;
+}
+
+.news-item-main h3 {
+  margin: 0 0 5px;
+
+  color: #263f60;
+
+  font-size: 18px;
+
+  line-height: 1.35;
+
+  font-weight: 750;
+}
+
+.news-item-main p {
+  margin: 0;
+
+  color: #71839a;
+
+  font-size: 14px;
+
+  line-height: 1.45;
+
+  display: -webkit-box;
+
+  -webkit-line-clamp: 2;
+
+  -webkit-box-orient: vertical;
+
+  overflow: hidden;
+}
+
+
+/* =========================================================
+   NGÀY BÊN PHẢI
+========================================================= */
+
+.news-item small {
+  flex-shrink: 0;
+
+  margin-left: 20px;
+
+  color: #8da2ba;
+
+  font-size: 13px;
+
+  line-height: 1.3;
+
+  white-space: nowrap;
+}
+
+
+/* =========================================================
+   TIÊU ĐỀ CÔNG CỤ
+========================================================= */
+
+.title {
+  margin: 34px 0 18px;
+
+  color: #263f60;
+
+  font-size: 30px;
+
+  line-height: 1.2;
+
+  font-weight: 800;
+}
+
+
+/* =========================================================
+   CARDS
+========================================================= */
+
+.cards {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 18px;
+
+  width: 100%;
+}
+
+
+/* =========================================================
+   CARD
+========================================================= */
+
+.card {
+  position: relative;
+
+  display: flex;
+
+  flex-direction: column;
+
+  min-height: 225px;
+
+  padding: 22px 24px;
+
+  box-sizing: border-box;
+
+  background: #ffffff;
+
+  border: 1px solid #dce6f1;
+
+  border-radius: 21px;
+
+  text-decoration: none;
+
+  overflow: hidden;
+
+  box-shadow:
+    0 6px 20px
+    rgba(30, 70, 110, 0.05);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.card::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: 0;
+  right: 0;
+
+  height: 4px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #14b8d4,
+      #2563eb
+    );
+}
+
+.card:hover {
+  transform: translateY(-3px);
+
+  box-shadow:
+    0 12px 28px
+    rgba(30, 70, 110, 0.10);
+}
+
+
+/* =========================================================
+   ICON CARD
+========================================================= */
+
+.card-icon {
+  width: 60px;
+  height: 60px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 16px;
+
+  border-radius: 17px;
+}
+
+.card-icon svg {
+  width: 29px;
+  height: 29px;
+}
+
+
+/* =========================================================
+   MÀU ICON
+========================================================= */
+
+.card-blue {
+  background: #edf4ff;
+
+  color: #2563eb;
+}
+
+.card-green {
+  background: #ecfaf3;
+
+  color: #16a34a;
+}
+
+.card-orange {
+  background: #fff5e9;
+
+  color: #ea580c;
+}
+
+.card-purple {
+  background: #f3efff;
+
+  color: #7c3aed;
+}
+
+.card-red {
+  background: #fff0f0;
+
+  color: #dc2626;
+}
+
+.card-yellow {
+  background: #fff9e8;
+
+  color: #ca8a04;
+}
+
+
+/* =========================================================
+   CARD TEXT
+========================================================= */
+
+.card h3 {
+  margin: 0 0 7px;
+
+  color: #263f60;
+
+  font-size: 20px;
+
+  line-height: 1.3;
+
+  font-weight: 750;
+}
+
+.card p {
+  margin: 0;
+
+  color: #71839a;
+
+  font-size: 14px;
+
+  line-height: 1.5;
+}
+
+
+/* =========================================================
+   CARD LINK
+========================================================= */
+
+.card > span {
+  display: flex;
+
+  align-items: center;
+
+  gap: 4px;
+
+  margin-top: auto;
+
+  padding-top: 15px;
+
+  color: #0868b5;
+
+  font-size: 15px;
+
+  line-height: 1.3;
+
+  font-weight: 750;
+}
+
+.card > span svg {
+  transition:
+    transform 0.2s ease;
+}
+
+.card:hover > span svg {
+  transform: translateX(3px);
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1100px) {
+
+  .banner {
+    min-height: 250px;
+
+    padding: 40px 30px;
+  }
+
+  .banner h1 {
+    font-size: 44px;
+  }
+
+  .banner h3 {
+    font-size: 23px;
+  }
+
+  .banner p {
+    font-size: 15px;
+  }
+
+  .news-banner {
+    padding: 23px;
+  }
+
+  .news-title h2 {
+    font-size: 25px;
+  }
+
+  .cards {
+    gap: 16px;
+  }
+
+  .card {
+    min-height: 210px;
+
+    padding: 21px;
+  }
+
+  .card h3 {
+    font-size: 19px;
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+  .banner {
+    min-height: 230px;
+
+    padding: 32px 20px;
+
+    border-radius: 24px;
+  }
+
+  .banner h1 {
+    font-size: 36px;
+  }
+
+  .banner h3 {
+    font-size: 19px;
+  }
+
+  .banner p {
+    font-size: 14px;
+  }
+
+  .news-banner {
+    margin-top: 25px;
+
+    padding: 18px;
+
+    border-radius: 20px;
+  }
+
+  .news-title {
+    margin-bottom: 16px;
+  }
+
+  .news-title h2 {
+    font-size: 22px;
+  }
+
+  .news-view-all {
+    font-size: 14px;
+  }
+
+  /* TIN */
+
+  .news-item {
+    align-items: flex-start;
+
+    padding: 15px;
+
+    min-height: auto;
+  }
+
+  .news-item-icon {
+    width: 48px;
+    height: 48px;
+
+    margin-right: 12px;
+
+    border-radius: 13px;
+  }
+
+  .news-item-icon svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .news-item-meta {
+    flex-wrap: wrap;
+
+    gap: 5px 9px;
+  }
+
+  .news-item-main h3 {
+    font-size: 16px;
+  }
+
+  .news-item-main p {
+    font-size: 13px;
+  }
+
+  .news-item small {
+    display: none;
+  }
+
+  /* LOADING */
+
+  .home-news-loading {
+    min-height: 190px;
+
+    padding: 25px 15px;
+  }
+
+  .home-news-loading-icon {
+    width: 50px;
+    height: 50px;
+
+    margin-bottom: 13px;
+  }
+
+  .home-news-loading h3 {
+    font-size: 19px;
+  }
+
+  .home-news-loading p {
+    font-size: 14px;
+  }
+
+  /* TITLE */
+
+  .title {
+    margin-top: 28px;
+
+    font-size: 25px;
+  }
+
+  /* CARDS */
+
+  .cards {
+    grid-template-columns: 1fr;
+
+    gap: 15px;
+  }
+
+  .card {
+    min-height: 205px;
+
+    padding: 20px;
+  }
+
+  .card-icon {
+    width: 55px;
+    height: 55px;
+
+    margin-bottom: 14px;
+
+    border-radius: 15px;
+  }
+
+  .card h3 {
+    font-size: 18px;
+  }
+
+  .card p {
+    font-size: 13px;
+  }
+}

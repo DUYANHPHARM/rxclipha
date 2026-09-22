@@ -1,6 +1,5 @@
 import "./Home.css";
 import { Link } from "react-router-dom";
-import { useEffect, useRef, useState } from "react";
 
 import {
   Search,
@@ -10,18 +9,23 @@ import {
   Syringe,
   ClipboardList,
   ChevronRight,
+  Bell,
+  CalendarDays,
+  PackageX,
+  Clock3,
+  PackagePlus,
+  TriangleAlert,
+  Info,
 } from "lucide-react";
 
-/* =====================================================
-   GOOGLE SHEETS API
-===================================================== */
+import { useEffect, useState } from "react";
 
-const API_URL =
-  "https://script.google.com/macros/s/AKfycbzX_ibLbT_-rz6f5z6i_MV5am4B_lEWwR6HwdpqVj3QYNljZC9SJ00Uvx2-y4pmLpnWDg/exec";
+const NEWS_API_URL =
+  "https://script.google.com/macros/s/AKfycbzX_ibLbT_-rz6f5z6i_MV5am4B_lEWwR6HwdpqVj3QYNljZC9SJ00Uvx2-y4pmLpnWDg/exec?type=news";
 
-/* =====================================================
+/* =========================================================
    CÔNG CỤ
-===================================================== */
+========================================================= */
 
 const tools = [
   {
@@ -51,7 +55,7 @@ const tools = [
   {
     title: "Báo cáo Dược lâm sàng ngoại trú",
     description:
-      "Tổng kết hoạt động giám sát Dược lâm sàng ngoại trú theo tháng",
+      "Tổng kết hoạt động giám sát Dược lâm sàng ngoại trú theo tháng.",
     icon: ClipboardList,
     color: "purple",
     path: "/report",
@@ -74,20 +78,115 @@ const tools = [
   },
 ];
 
-/* =====================================================
-   LOAD NEWS TỪ GOOGLE SHEETS
-===================================================== */
+/* =========================================================
+   ICON THEO NHÓM TIN
+========================================================= */
+
+function getNewsIcon(group) {
+  const value = String(group || "").trim();
+
+  if (value === "Thuốc hết số lượng, gián đoạn cung ứng") {
+    return PackageX;
+  }
+
+  if (value === "Thuốc chậm sử dụng") {
+    return Clock3;
+  }
+
+  if (value === "Thuốc mới") {
+    return PackagePlus;
+  }
+
+  if (value === "ADR/Thu hồi thuốc") {
+    return TriangleAlert;
+  }
+
+  if (value === "Lưu ý khi dùng thuốc") {
+    return Info;
+  }
+
+  if (value === "Thông báo mới từ khoa Dược") {
+    return Bell;
+  }
+
+  if (value === "Thông báo khoa Dược") {
+    return Bell;
+  }
+
+  return Bell;
+}
+
+/* =========================================================
+   CHUYỂN NGÀY
+========================================================= */
+
+function formatDate(value) {
+  if (!value) return "";
+
+  const text = String(value).trim();
+
+  const match = text.match(
+    /^(\d{4})-(\d{2})-(\d{2})/
+  );
+
+  if (match) {
+    return `${match[3]}/${match[2]}/${match[1]}`;
+  }
+
+  if (/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(text)) {
+    const parts = text.split("/");
+
+    return `${parts[0].padStart(2, "0")}/${parts[1].padStart(
+      2,
+      "0"
+    )}/${parts[2]}`;
+  }
+
+  return text;
+}
+
+/* =========================================================
+   CHUYỂN NGÀY ĐỂ SẮP XẾP
+========================================================= */
+
+function getDateValue(value) {
+  if (!value) return 0;
+
+  const text = String(value).trim();
+
+  const isoMatch = text.match(
+    /^(\d{4})-(\d{2})-(\d{2})/
+  );
+
+  if (isoMatch) {
+    return new Date(
+      Number(isoMatch[1]),
+      Number(isoMatch[2]) - 1,
+      Number(isoMatch[3])
+    ).getTime();
+  }
+
+  const vnMatch = text.match(
+    /^(\d{1,2})\/(\d{1,2})\/(\d{4})/
+  );
+
+  if (vnMatch) {
+    return new Date(
+      Number(vnMatch[3]),
+      Number(vnMatch[2]) - 1,
+      Number(vnMatch[1])
+    ).getTime();
+  }
+
+  return 0;
+}
+
+/* =========================================================
+   LOAD NEWS
+========================================================= */
 
 function loadNews() {
   return new Promise((resolve, reject) => {
-    /*
-      QUAN TRỌNG:
-      Google Apps Script News đang trả về:
-
-      rxcliphaNewsCallback([...]);
-
-      nên Home phải dùng đúng callback này.
-    */
     const callbackName = "rxcliphaNewsCallback";
 
     const script = document.createElement("script");
@@ -133,147 +232,23 @@ function loadNews() {
 
       reject(
         new Error(
-          "Không thể tải dữ liệu tin mới từ Google Sheets."
+          "Không thể tải tin mới từ Google Sheets."
         )
       );
     };
 
-    /*
-      type=news
-      + timestamp để tránh cache
-    */
-
-    script.src =
-      `${API_URL}?type=news&_=${Date.now()}`;
-
-    script.async = true;
+    script.src = NEWS_API_URL;
 
     document.body.appendChild(script);
   });
 }
 
-/* =====================================================
-   FORMAT NGÀY
-===================================================== */
-
-function formatDate(value) {
-  if (!value) return "";
-
-  const text = String(value).trim();
-
-  if (!text) return "";
-
-  const date = new Date(text);
-
-  if (!Number.isNaN(date.getTime())) {
-    return date.toLocaleDateString("vi-VN", {
-      day: "2-digit",
-      month: "2-digit",
-      year: "numeric",
-      timeZone: "Asia/Ho_Chi_Minh",
-    });
-  }
-
-  if (
-    /^\d{1,2}\/\d{1,2}\/\d{4}$/.test(text)
-  ) {
-    return text;
-  }
-
-  return text;
-}
-
-/* =====================================================
-   CHUYỂN NGÀY SANG TIMESTAMP
-===================================================== */
-
-function getDateValue(value) {
-  if (!value) return 0;
-
-  const date = new Date(value);
-
-  if (!Number.isNaN(date.getTime())) {
-    return date.getTime();
-  }
-
-  /*
-    Trường hợp Google Sheets trả về dạng:
-    dd/mm/yyyy
-  */
-
-  const text = String(value).trim();
-
-  const match = text.match(
-    /^(\d{1,2})\/(\d{1,2})\/(\d{4})$/
-  );
-
-  if (match) {
-    const day = Number(match[1]);
-    const month = Number(match[2]) - 1;
-    const year = Number(match[3]);
-
-    return new Date(
-      year,
-      month,
-      day
-    ).getTime();
-  }
-
-  return 0;
-}
-
-/* =====================================================
-   XÁC ĐỊNH MÀU TIN
-===================================================== */
-
-function getNewsType(group) {
-  const value = String(group || "").trim();
-
-  if (
-    value ===
-    "Thuốc hết số lượng, gián đoạn cung ứng"
-  ) {
-    return "danger";
-  }
-
-  if (
-    value === "Thuốc chậm sử dụng"
-  ) {
-    return "warning";
-  }
-
-  if (
-    value === "Thuốc mới"
-  ) {
-    return "success";
-  }
-
-  if (
-    value === "ADR/Thu hồi thuốc"
-  ) {
-    return "danger";
-  }
-
-  if (
-    value === "Lưu ý khi dùng thuốc"
-  ) {
-    return "info";
-  }
-
-  /*
-    Thông báo mới từ khoa Dược
-  */
-
-  return "purple";
-}
-
-/* =====================================================
+/* =========================================================
    HOME
-===================================================== */
+========================================================= */
 
 function Home() {
-  const [latestNews, setLatestNews] =
-    useState([]);
+  const [news, setNews] = useState([]);
 
   const [newsLoading, setNewsLoading] =
     useState(true);
@@ -281,92 +256,74 @@ function Home() {
   const [newsError, setNewsError] =
     useState("");
 
-  const hasLoaded =
-    useRef(false);
-
-  /* ===================================================
-     TẢI TIN MỚI
-  =================================================== */
-
   useEffect(() => {
-    if (hasLoaded.current) {
-      return;
-    }
-
-    hasLoaded.current = true;
+    let mounted = true;
 
     async function fetchNews() {
       try {
         setNewsLoading(true);
         setNewsError("");
 
-        const data =
-          await loadNews();
+        const data = await loadNews();
 
-        /*
-          Chỉ lấy các tin:
+        if (!mounted) return;
 
-          TrangThai = Đang hiển thị
-        */
+        /* Chỉ lấy tin đang hiển thị */
 
-        const activeNews =
-          data.filter((item) => {
-            const status =
-              String(
-                item.TrangThai || ""
-              ).trim();
+        const activeNews = data.filter((item) => {
+          const status = String(
+            item.TrangThai || ""
+          ).trim();
 
-            return (
-              status === "Đang hiển thị"
-            );
-          });
-
-        /*
-          Sắp xếp tin mới nhất lên đầu
-        */
-
-        activeNews.sort((a, b) => {
-          return (
-            getDateValue(b.Ngay) -
-            getDateValue(a.Ngay)
-          );
+          return status === "Đang hiển thị";
         });
 
-        /*
-          CHỈ LẤY 2 TIN MỚI NHẤT
-        */
+        /* Sắp xếp tin mới nhất trước */
 
-        setLatestNews(
-          activeNews.slice(0, 2)
+        const sortedNews = [...activeNews].sort(
+          (a, b) =>
+            getDateValue(b.Ngay) -
+            getDateValue(a.Ngay)
         );
+
+        /* CHỈ LẤY 2 TIN MỚI NHẤT */
+
+        setNews(sortedNews.slice(0, 2));
       } catch (error) {
         console.error(
           "Lỗi tải tin mới:",
           error
         );
 
+        if (!mounted) return;
+
         setNewsError(
           error.message ||
             "Không thể tải tin mới."
         );
       } finally {
-        setNewsLoading(false);
+        if (mounted) {
+          setNewsLoading(false);
+        }
       }
     }
 
     fetchNews();
+
+    return () => {
+      mounted = false;
+    };
   }, []);
 
   return (
-    <>
+    <div className="home">
+
       {/* =================================================
           BANNER
       ================================================= */}
 
       <section className="banner">
-        <h1>
-          RxCliPha
-        </h1>
+        <h1>RxCliPha</h1>
 
         <h3>
           Thông tin thuốc & Dược lâm sàng ngoại trú
@@ -378,12 +335,15 @@ function Home() {
         </p>
       </section>
 
+
       {/* =================================================
-          BẢN TIN
+          TIN MỚI
       ================================================= */}
 
       <section className="news-banner">
+
         <div className="news-title">
+
           <h2>
             📢 Tin mới
           </h2>
@@ -394,132 +354,171 @@ function Home() {
           >
             Xem tất cả
           </Link>
+
         </div>
 
-        {/* =================================================
-            ĐANG TẢI
-        ================================================= */}
 
-        {newsLoading && (
-          <div className="news-list">
-            <div className="news-item">
-              <div className="news-status purple"></div>
+        <div className="news-list">
 
-              <div className="news-content">
-                <h4>
-                  Đang tải tin mới...
-                </h4>
+          {/* =================================================
+              ĐANG TẢI
+          ================================================= */}
+
+          {newsLoading && (
+            <div className="home-news-loading">
+
+              <Bell
+                className="home-news-loading-icon"
+                size={58}
+              />
+
+              <h3>
+                Đang tải thông tin
+              </h3>
+
+              <p>
+                Đang kết nối với cơ sở dữ liệu tin mới.
+              </p>
+
+            </div>
+          )}
+
+
+          {/* =================================================
+              LỖI
+          ================================================= */}
+
+          {!newsLoading && newsError && (
+            <div className="home-news-loading">
+
+              <Bell
+                className="home-news-loading-icon error"
+                size={58}
+              />
+
+              <h3>
+                Không thể tải tin mới
+              </h3>
+
+              <p>
+                {newsError}
+              </p>
+
+            </div>
+          )}
+
+
+          {/* =================================================
+              KHÔNG CÓ TIN
+          ================================================= */}
+
+          {!newsLoading &&
+            !newsError &&
+            news.length === 0 && (
+              <div className="home-news-loading">
+
+                <Bell
+                  className="home-news-loading-icon"
+                  size={58}
+                />
+
+                <h3>
+                  Chưa có tin mới
+                </h3>
 
                 <p>
-                  Đang kết nối với cơ sở dữ liệu tin mới.
+                  Hiện chưa có thông tin mới từ khoa Dược.
                 </p>
+
               </div>
-            </div>
-          </div>
-        )}
+            )}
 
-        {/* =================================================
-            LỖI
-        ================================================= */}
 
-        {!newsLoading &&
-          newsError && (
-            <div className="news-list">
-              <div className="news-item">
-                <div className="news-status danger"></div>
+          {/* =================================================
+              DANH SÁCH 2 TIN MỚI NHẤT
+          ================================================= */}
 
-                <div className="news-content">
-                  <h4>
-                    Không thể tải tin mới
-                  </h4>
+          {!newsLoading &&
+            !newsError &&
+            news.map((item) => {
 
-                  <p>
-                    {newsError}
-                  </p>
-                </div>
-              </div>
-            </div>
-          )}
+              const Icon = getNewsIcon(
+                item.Nhom
+              );
 
-        {/* =================================================
-            KHÔNG CÓ TIN
-        ================================================= */}
+              return (
+                <Link
+                  to="/news"
+                  className="news-item"
+                  key={
+                    item.id ||
+                    `${item.Ngay}-${item.TieuDe}`
+                  }
+                >
 
-        {!newsLoading &&
-          !newsError &&
-          latestNews.length === 0 && (
-            <div className="news-list">
-              <div className="news-item">
-                <div className="news-status purple"></div>
+                  {/* ICON */}
 
-                <div className="news-content">
-                  <h4>
-                    Chưa có tin mới
-                  </h4>
+                  <div className="news-item-icon">
+                    <Icon size={23} />
+                  </div>
 
-                  <p>
-                    Hiện chưa có thông tin mới được cập nhật.
-                  </p>
-                </div>
-              </div>
-            </div>
-          )}
 
-        {/* =================================================
-            DANH SÁCH 2 TIN MỚI NHẤT
-        ================================================= */}
+                  {/* NỘI DUNG */}
 
-        {!newsLoading &&
-          !newsError &&
-          latestNews.length > 0 && (
-            <div className="news-list">
-              {latestNews.map(
-                (item, index) => {
-                  const newsType =
-                    getNewsType(
-                      item.Nhom
-                    );
+                  <div className="news-item-main">
 
-                  return (
-                    <Link
-                      key={`${item.TieuDe}-${item.Ngay}-${index}`}
-                      to={`/news?title=${encodeURIComponent(
-                        item.TieuDe
-                      )}`}
-                      className="news-item"
-                    >
-                      {/* DẤU MÀU */}
+                    <div className="news-item-meta">
 
-                      <div
-                        className={`news-status ${newsType}`}
-                      ></div>
+                      <span className="news-category">
+                        {item.Nhom ||
+                          "Thông báo khoa Dược"}
+                      </span>
 
-                      {/* NỘI DUNG */}
+                      <span className="news-date">
 
-                      <div className="news-content">
-                        <h4>
-                          {item.TieuDe}
-                        </h4>
+                        <CalendarDays
+                          size={14}
+                        />
 
-                        <p>
-                          {item.TomTat}
-                        </p>
-                      </div>
-
-                      {/* NGÀY */}
-
-                      <small>
                         {formatDate(
                           item.Ngay
                         )}
-                      </small>
-                    </Link>
-                  );
-                }
-              )}
-            </div>
-          )}
+
+                      </span>
+
+                    </div>
+
+
+                    <h3>
+                      {item.TieuDe}
+                    </h3>
+
+
+                    <p>
+                      {item.TomTat ||
+                        item.NoiDung ||
+                        "Xem thông tin chi tiết tại trang Tin mới."}
+                    </p>
+
+                  </div>
+
+
+                  {/* NGÀY */}
+
+                  <small>
+                    {formatDate(
+                      item.Ngay
+                    )}
+                  </small>
+
+                </Link>
+              );
+            })}
+
+        </div>
+
       </section>
+
 
       {/* =================================================
           CÔNG CỤ NỔI BẬT
@@ -529,10 +528,12 @@ function Home() {
         Công cụ nổi bật
       </h2>
 
+
       <div className="cards">
+
         {tools.map((tool) => {
-          const Icon =
-            tool.icon;
+
+          const Icon = tool.icon;
 
           return (
             <Link
@@ -540,21 +541,23 @@ function Home() {
               to={tool.path}
               className="card"
             >
+
               <div
                 className={`card-icon card-${tool.color}`}
               >
-                <Icon
-                  size={34}
-                />
+                <Icon size={34} />
               </div>
+
 
               <h3>
                 {tool.title}
               </h3>
 
+
               <p>
                 {tool.description}
               </p>
+
 
               <span>
                 Truy cập ngay
@@ -562,12 +565,16 @@ function Home() {
                 <ChevronRight
                   size={18}
                 />
+
               </span>
+
             </Link>
           );
         })}
+
       </div>
-    </>
+
+    </div>
   );
 }
 
