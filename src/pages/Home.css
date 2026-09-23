@@ -351,15 +351,12 @@
 
 
 /* =========================================================
-   MÀU PASTEL THEO NHÓM TIN
+   TIN MỚI - NỀN TRẮNG ĐỒNG NHẤT
 ========================================================= */
 
-.news-item {
-  background: #eef8ff;
-}
-
+.news-item,
 .news-item:nth-child(2n) {
-  background: #f5f1ff;
+  background: #ffffff !important;
 }
 
 
@@ -911,3 +908,4 @@
     font-size: 13px;
   }
 }
+
