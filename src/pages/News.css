@@ -610,64 +610,16 @@
 }
 
 /* =========================================
-   PASTEL COLORS - DANH MỤC TIN
+   MÀU NỀN TIN - TẤT CẢ MÀU TRẮNG
 ========================================= */
 
-.news-filter {
-  transition:
-    background 0.2s ease,
-    border-color 0.2s ease,
-    color 0.2s ease,
-    box-shadow 0.2s ease;
+.news-item,
+.news-item.open {
+  background: #ffffff !important;
 }
 
-/* Tất cả */
-.news-filter:first-child {
-  background: #eef5ff;
-  border-color: #c9dcf7;
-  color: #0756a5;
-}
-
-/* Thông báo mới từ khoa Dược */
-.news-filter:nth-child(2) {
-  background: #eef8ff;
-  border-color: #c9e5f5;
-  color: #17658a;
-}
-
-/* Thuốc hết số lượng */
-.news-filter:nth-child(3) {
-  background: #fff5ea;
-  border-color: #f4d9b8;
-  color: #a65b16;
-}
-
-/* Thuốc chậm sử dụng */
-.news-filter:nth-child(4) {
-  background: #fffbea;
-  border-color: #f1e2ad;
-  color: #8a6a00;
-}
-
-/* Thuốc mới */
-.news-filter:nth-child(5) {
-  background: #eef9f1;
-  border-color: #c9e5d0;
-  color: #287344;
-}
-
-/* ADR / Thu hồi */
-.news-filter:nth-child(6) {
-  background: #fff0f1;
-  border-color: #f0cccc;
-  color: #a4444c;
-}
-
-/* Lưu ý khi dùng thuốc */
-.news-filter:nth-child(7) {
-  background: #f5f0ff;
-  border-color: #ddd0f5;
-  color: #6946a5;
+.news-item:hover {
+  background: #ffffff !important;
 }
 
 
@@ -675,32 +627,8 @@
    HOVER
 ========================================= */
 
-.news-filter:first-child:hover {
-  background: #e2efff;
-}
-
-.news-filter:nth-child(2):hover {
-  background: #e3f3fc;
-}
-
-.news-filter:nth-child(3):hover {
-  background: #ffecd8;
-}
-
-.news-filter:nth-child(4):hover {
-  background: #fff5cf;
-}
-
-.news-filter:nth-child(5):hover {
-  background: #e2f4e7;
-}
-
-.news-filter:nth-child(6):hover {
-  background: #ffe2e5;
-}
-
-.news-filter:nth-child(7):hover {
-  background: #eee5ff;
+.news-filter:hover {
+  background: #ffffff;
 }
 
 
