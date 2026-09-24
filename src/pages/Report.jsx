@@ -704,7 +704,7 @@ export default function Report() {
           ========================================= */}
 
           <h1>
-            Khu vực nội bộ
+            Dữ liệu nội bộ
           </h1>
 
 
@@ -717,8 +717,7 @@ export default function Report() {
 
           <p className="report-login-note">
 
-            Vui lòng nhập mật khẩu để truy cập
-            module báo cáo.
+            Vui lòng nhập mật khẩu để truy cập báo cáo!
 
           </p>
 
