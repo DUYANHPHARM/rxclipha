@@ -487,3 +487,318 @@
   }
 
 }
+
+
+/* =====================================================
+   MÀN HÌNH ĐĂNG NHẬP BÁO CÁO NỘI BỘ
+===================================================== */
+
+.report-login-page {
+
+  width: 100%;
+  min-height: 620px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  box-sizing: border-box;
+
+  padding: 40px;
+
+}
+
+
+/* =====================================================
+   CARD ĐĂNG NHẬP
+===================================================== */
+
+.report-login-card {
+
+  width: 100%;
+  max-width: 500px;
+
+  padding: 44px 42px;
+
+  box-sizing: border-box;
+
+  background: #ffffff;
+
+  border: 1px solid #dce6f1;
+
+  border-radius: 28px;
+
+  box-shadow:
+    0 15px 45px
+    rgba(30, 70, 110, 0.10);
+
+  text-align: center;
+
+}
+
+
+/* =====================================================
+   ICON
+===================================================== */
+
+.report-login-icon {
+
+  width: 78px;
+  height: 78px;
+
+  margin: 0 auto 22px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 22px;
+
+  background: #eee8ff;
+
+  color: #7040c7;
+
+}
+
+
+/* =====================================================
+   TIÊU ĐỀ
+===================================================== */
+
+.report-login-card h1 {
+
+  margin: 0 0 8px;
+
+  color: #243b5a;
+
+  font-size: 28px;
+
+  line-height: 1.25;
+
+  font-weight: 800;
+
+}
+
+
+.report-login-description {
+
+  margin: 0;
+
+  color: #0868b5;
+
+  font-size: 17px;
+
+  line-height: 1.4;
+
+  font-weight: 750;
+
+}
+
+
+.report-login-note {
+
+  margin: 10px 0 28px;
+
+  color: #71839a;
+
+  font-size: 14px;
+
+  line-height: 1.5;
+
+}
+
+
+/* =====================================================
+   Ô MẬT KHẨU
+===================================================== */
+
+.report-password-group {
+
+  text-align: left;
+
+  margin-bottom: 12px;
+
+}
+
+
+.report-password-group label {
+
+  display: block;
+
+  margin-bottom: 8px;
+
+  color: #263f60;
+
+  font-size: 14px;
+
+  font-weight: 750;
+
+}
+
+
+.report-password-group input {
+
+  width: 100%;
+
+  height: 50px;
+
+  padding: 0 16px;
+
+  box-sizing: border-box;
+
+  border: 1px solid #d5e0ec;
+
+  border-radius: 13px;
+
+  outline: none;
+
+  background: #f9fbfd;
+
+  color: #243b5a;
+
+  font-size: 15px;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+
+}
+
+
+.report-password-group input:focus {
+
+  border-color: #1683d8;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 0 0 4px
+    rgba(22, 131, 216, 0.10);
+
+}
+
+
+.report-password-group input::placeholder {
+
+  color: #9aaabd;
+
+}
+
+
+/* =====================================================
+   THÔNG BÁO SAI MẬT KHẨU
+===================================================== */
+
+.report-password-error {
+
+  margin: 10px 0 14px;
+
+  padding: 10px 12px;
+
+  border-radius: 10px;
+
+  background: #fff0f0;
+
+  border: 1px solid #f3caca;
+
+  color: #c73535;
+
+  font-size: 13px;
+
+  line-height: 1.4;
+
+  text-align: left;
+
+}
+
+
+/* =====================================================
+   NÚT ĐĂNG NHẬP
+===================================================== */
+
+.report-login-button {
+
+  width: 100%;
+
+  height: 50px;
+
+  margin-top: 10px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 9px;
+
+  border: none;
+
+  border-radius: 13px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #1469b8,
+      #087fd0
+    );
+
+  color: #ffffff;
+
+  font-size: 15px;
+
+  font-weight: 750;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+
+}
+
+
+.report-login-button:hover {
+
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 8px 20px
+    rgba(8, 127, 208, 0.22);
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 600px) {
+
+  .report-login-page {
+
+    min-height: 520px;
+
+    padding: 20px;
+
+  }
+
+
+  .report-login-card {
+
+    padding: 34px 24px;
+
+    border-radius: 22px;
+
+  }
+
+
+  .report-login-card h1 {
+
+    font-size: 24px;
+
+  }
+
+}
