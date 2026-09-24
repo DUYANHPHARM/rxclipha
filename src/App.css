@@ -1695,3 +1695,2289 @@ header {
   }
 
 }
+
+
+/* =========================================================
+   RXCLIPHA MOBILE
+   Chỉ áp dụng cho màn hình <= 900px
+   KHÔNG ẢNH HƯỞNG DESKTOP
+========================================================= */
+
+
+/* =========================================================
+   MOBILE TOP BAR
+========================================================= */
+
+.mobile-topbar {
+  display: none;
+}
+
+
+/* =========================================================
+   MOBILE SIDEBAR
+========================================================= */
+
+.mobile-sidebar {
+  display: none;
+}
+
+
+/* =========================================================
+   MOBILE OVERLAY
+========================================================= */
+
+.mobile-overlay {
+  display: none;
+}
+
+
+/* =========================================================
+   MOBILE CHAT CLOSE
+========================================================= */
+
+.chat-close-button {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 34px;
+  height: 34px;
+
+  padding: 0;
+
+  border: none;
+  background: transparent;
+
+  color: #ffffff;
+
+  cursor: pointer;
+
+  border-radius: 10px;
+
+  transition:
+    background 0.2s ease;
+}
+
+.chat-close-button:hover {
+  background: rgba(255,255,255,0.14);
+}
+
+
+/* =========================================================
+   TABLET / MOBILE
+========================================================= */
+
+@media (max-width: 900px) {
+
+  /* =======================================================
+     MAIN
+  ======================================================= */
+
+  .content {
+
+    width: 100%;
+
+    min-width: 0;
+
+    padding:
+      0
+      20px
+      30px;
+
+    box-sizing: border-box;
+
+  }
+
+
+  /* =======================================================
+     ẨN HEADER DESKTOP
+  ======================================================= */
+
+  .content > header {
+    display: none;
+  }
+
+
+  /* =======================================================
+     MOBILE TOPBAR
+  ======================================================= */
+
+  .mobile-topbar {
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 800;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    width: calc(100% + 40px);
+
+    min-height: 68px;
+
+    margin-left: -20px;
+
+    padding:
+      10px
+      16px;
+
+    box-sizing: border-box;
+
+    background:
+      rgba(255,255,255,0.96);
+
+    border-bottom:
+      1px solid #e7edf4;
+
+    box-shadow:
+      0 4px 18px
+      rgba(30,70,110,0.06);
+
+    backdrop-filter:
+      blur(12px);
+
+  }
+
+
+  /* =======================================================
+     LOGO MOBILE
+  ======================================================= */
+
+  .mobile-topbar-left {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    min-width: 0;
+
+  }
+
+
+  .mobile-top-logo {
+
+    width: 42px;
+    height: 42px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+
+    color: #ffffff;
+
+    background:
+      linear-gradient(
+        135deg,
+        #0ea5e9,
+        #2563eb
+      );
+
+    box-shadow:
+      0 5px 14px
+      rgba(37,99,235,0.22);
+
+  }
+
+
+  .mobile-top-logo strong {
+
+    font-size: 17px;
+
+    font-weight: 800;
+
+    letter-spacing: -0.5px;
+
+  }
+
+
+  .mobile-top-text {
+
+    display: flex;
+
+    flex-direction: column;
+
+    min-width: 0;
+
+  }
+
+
+  .mobile-top-text strong {
+
+    color: #16385f;
+
+    font-size: 17px;
+
+    line-height: 1.15;
+
+    font-weight: 800;
+
+  }
+
+
+  .mobile-top-text span {
+
+    margin-top: 2px;
+
+    color: #7a8da4;
+
+    font-size: 11px;
+
+    line-height: 1.2;
+
+  }
+
+
+  /* =======================================================
+     NÚT MENU
+  ======================================================= */
+
+  .mobile-menu-button {
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 44px;
+    height: 44px;
+
+    flex-shrink: 0;
+
+    padding: 0;
+
+    border:
+      1px solid #dce6f1;
+
+    border-radius: 13px;
+
+    background: #ffffff;
+
+    color: #1e5fa7;
+
+    cursor: pointer;
+
+    box-shadow:
+      0 4px 12px
+      rgba(30,70,110,0.07);
+
+    transition:
+      transform 0.2s ease,
+      background 0.2s ease,
+      box-shadow 0.2s ease;
+
+  }
+
+
+  .mobile-menu-button:active {
+
+    transform: scale(0.94);
+
+    background: #f2f7fc;
+
+  }
+
+
+  /* =======================================================
+     MOBILE SIDEBAR
+  ======================================================= */
+
+  .mobile-sidebar {
+
+    position: fixed;
+
+    top: 0;
+    left: 0;
+    bottom: 0;
+
+    z-index: 1100;
+
+    display: flex;
+
+    flex-direction: column;
+
+    width: min(82vw, 330px);
+
+    max-width: 330px;
+
+    height: 100dvh;
+
+    box-sizing: border-box;
+
+    background: #ffffff;
+
+    box-shadow:
+      12px 0 40px
+      rgba(15,23,42,0.18);
+
+    transform:
+      translateX(-105%);
+
+    transition:
+      transform
+      0.28s
+      cubic-bezier(
+        0.22,
+        1,
+        0.36,
+        1
+      );
+
+    overflow: hidden;
+
+  }
+
+
+  .mobile-sidebar-open {
+
+    transform:
+      translateX(0);
+
+  }
+
+
+  /* =======================================================
+     MOBILE SIDEBAR HEADER
+  ======================================================= */
+
+  .mobile-sidebar-header {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    min-height: 82px;
+
+    padding:
+      16px
+      16px
+      14px;
+
+    box-sizing: border-box;
+
+    border-bottom:
+      1px solid #edf2f7;
+
+    background:
+      linear-gradient(
+        180deg,
+        #f8fbff,
+        #ffffff
+      );
+
+  }
+
+
+  .mobile-logo {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 11px;
+
+    min-width: 0;
+
+  }
+
+
+  .mobile-logo-icon {
+
+    width: 46px;
+    height: 46px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 14px;
+
+    color: #ffffff;
+
+    background:
+      linear-gradient(
+        135deg,
+        #0ea5e9,
+        #2563eb
+      );
+
+    box-shadow:
+      0 7px 18px
+      rgba(37,99,235,0.22);
+
+  }
+
+
+  .mobile-logo-icon strong {
+
+    font-size: 18px;
+
+    font-weight: 800;
+
+  }
+
+
+  .mobile-logo > div:last-child {
+
+    display: flex;
+
+    flex-direction: column;
+
+    min-width: 0;
+
+  }
+
+
+  .mobile-logo > div:last-child strong {
+
+    color: #193c62;
+
+    font-size: 18px;
+
+    line-height: 1.2;
+
+    font-weight: 800;
+
+  }
+
+
+  .mobile-logo > div:last-child span {
+
+    margin-top: 3px;
+
+    color: #8495a9;
+
+    font-size: 11px;
+
+    line-height: 1.2;
+
+  }
+
+
+  /* =======================================================
+     CLOSE BUTTON
+  ======================================================= */
+
+  .mobile-close-button {
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 40px;
+    height: 40px;
+
+    flex-shrink: 0;
+
+    padding: 0;
+
+    border: none;
+
+    border-radius: 12px;
+
+    color: #64748b;
+
+    background: #f1f5f9;
+
+    cursor: pointer;
+
+    transition:
+      background 0.2s ease,
+      transform 0.2s ease;
+
+  }
+
+
+  .mobile-close-button:active {
+
+    transform: scale(0.92);
+
+    background: #e8eef5;
+
+  }
+
+
+  /* =======================================================
+     MOBILE NAV
+  ======================================================= */
+
+  .mobile-nav {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 5px;
+
+    flex: 1;
+
+    padding:
+      16px 12px;
+
+    overflow-y: auto;
+
+  }
+
+
+  .mobile-nav a {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+
+    width: 100%;
+
+    min-height: 48px;
+
+    padding:
+      11px 13px;
+
+    box-sizing: border-box;
+
+    border-radius: 13px;
+
+    color: #536b84;
+
+    text-decoration: none;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    transition:
+      background 0.18s ease,
+      color 0.18s ease,
+      transform 0.18s ease;
+
+  }
+
+
+  .mobile-nav a svg {
+
+    flex-shrink: 0;
+
+  }
+
+
+  .mobile-nav a:active {
+
+    transform: scale(0.98);
+
+  }
+
+
+  .mobile-nav a.active {
+
+    color: #0756a5;
+
+    background:
+      linear-gradient(
+        90deg,
+        #eaf4ff,
+        #f2f8ff
+      );
+
+    font-weight: 750;
+
+  }
+
+
+  .mobile-nav a.active svg {
+
+    color: #0868b5;
+
+  }
+
+
+  /* =======================================================
+     MOBILE FOOTER
+  ======================================================= */
+
+  .mobile-sidebar-footer {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin:
+      0 12px
+      14px;
+
+    padding:
+      12px;
+
+    border:
+      1px solid #e3ebf4;
+
+    border-radius: 14px;
+
+    background: #f8fbff;
+
+  }
+
+
+  .mobile-footer-icon {
+
+    width: 34px;
+    height: 34px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 10px;
+
+    color: #0b6db7;
+
+    background: #e6f3ff;
+
+  }
+
+
+  .mobile-sidebar-footer > div:last-child {
+
+    display: flex;
+
+    flex-direction: column;
+
+    min-width: 0;
+
+  }
+
+
+  .mobile-sidebar-footer strong {
+
+    color: #31506f;
+
+    font-size: 13px;
+
+  }
+
+
+  .mobile-sidebar-footer span {
+
+    margin-top: 2px;
+
+    color: #8495a9;
+
+    font-size: 10px;
+
+  }
+
+
+  /* =======================================================
+     OVERLAY
+  ======================================================= */
+
+  .mobile-overlay {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 1050;
+
+    display: block;
+
+    background:
+      rgba(15,23,42,0.38);
+
+    backdrop-filter:
+      blur(2px);
+
+    animation:
+      mobileOverlayFade
+      0.2s ease;
+
+  }
+
+
+  @keyframes mobileOverlayFade {
+
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
+
+  }
+
+
+  /* =======================================================
+     CHATBOX MOBILE
+  ======================================================= */
+
+  .chat-button {
+
+    right: 17px;
+
+    bottom: 18px;
+
+    width: 56px;
+    height: 56px;
+
+    border-radius: 18px;
+
+    box-shadow:
+      0 10px 25px
+      rgba(37,99,235,0.30);
+
+  }
+
+
+  .chat-button svg {
+
+    width: 24px;
+    height: 24px;
+
+  }
+
+
+  .chat-box {
+
+    right: 12px;
+    left: 12px;
+
+    bottom: 86px;
+
+    width: auto;
+
+    max-width: none;
+
+    border-radius: 20px;
+
+    max-height:
+      calc(100dvh - 110px);
+
+  }
+
+
+  .chat-header {
+
+    padding:
+      16px;
+
+  }
+
+
+  .chat-header strong {
+
+    font-size: 15px;
+
+  }
+
+
+  .chat-header small {
+
+    font-size: 11px;
+
+  }
+
+
+  .chat-content {
+
+    padding: 18px;
+
+    max-height:
+      45vh;
+
+    overflow-y: auto;
+
+    font-size: 14px;
+
+  }
+
+
+  .chat-input input {
+
+    min-width: 0;
+
+    padding:
+      15px;
+
+    font-size: 14px;
+
+  }
+
+
+  .chat-input button {
+
+    width: 58px;
+
+    flex-shrink: 0;
+
+  }
+
+
+  /* =======================================================
+     HOME MOBILE
+  ======================================================= */
+
+  .banner {
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    margin-top: 18px;
+
+    padding:
+      32px 22px;
+
+    border-radius: 20px;
+
+  }
+
+
+  .banner h1 {
+
+    font-size: 38px;
+
+  }
+
+
+  .banner h3 {
+
+    font-size: 20px;
+
+    line-height: 1.35;
+
+  }
+
+
+  .banner p {
+
+    font-size: 14px;
+
+    line-height: 1.6;
+
+  }
+
+
+  /* =======================================================
+     HOME NEWS
+  ======================================================= */
+
+  .news-banner {
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    margin-top: 18px;
+
+    border-radius: 18px;
+
+  }
+
+
+  /* =======================================================
+     CARDS
+  ======================================================= */
+
+  .cards {
+
+    grid-template-columns:
+      1fr !important;
+
+    gap: 14px;
+
+  }
+
+
+  .card {
+
+    width: 100%;
+
+    min-width: 0;
+
+    min-height: 0;
+
+    padding: 20px;
+
+    border-radius: 18px;
+
+  }
+
+
+  .card h3 {
+
+    font-size: 19px;
+
+  }
+
+
+  .card p {
+
+    font-size: 13px;
+
+  }
+
+
+  /* =======================================================
+     PAGE HEADER
+  ======================================================= */
+
+  .page-header {
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    margin-top: 18px;
+
+  }
+
+
+  .page-header h1 {
+
+    font-size: 25px;
+
+    line-height: 1.25;
+
+  }
+
+
+  .page-header p {
+
+    font-size: 13px;
+
+    line-height: 1.5;
+
+  }
+
+}
+
+
+/* =========================================================
+   ĐIỆN THOẠI NHỎ
+========================================================= */
+
+@media (max-width: 480px) {
+
+  .content {
+
+    padding:
+      0 14px
+      24px;
+
+  }
+
+
+  .mobile-topbar {
+
+    width: calc(100% + 28px);
+
+    margin-left: -14px;
+
+    padding:
+      9px 12px;
+
+  }
+
+
+  .mobile-top-logo {
+
+    width: 40px;
+    height: 40px;
+
+    border-radius: 11px;
+
+  }
+
+
+  .mobile-top-text strong {
+
+    font-size: 16px;
+
+  }
+
+
+  .mobile-top-text span {
+
+    font-size: 10px;
+
+  }
+
+
+  .mobile-menu-button {
+
+    width: 42px;
+    height: 42px;
+
+  }
+
+
+  .banner {
+
+    margin-top: 14px;
+
+    padding:
+      27px 18px;
+
+    border-radius: 18px;
+
+  }
+
+
+  .banner h1 {
+
+    font-size: 34px;
+
+  }
+
+
+  .banner h3 {
+
+    font-size: 18px;
+
+  }
+
+
+  .banner p {
+
+    font-size: 13px;
+
+  }
+
+
+  .news-banner {
+
+    margin-top: 14px;
+
+    border-radius: 16px;
+
+  }
+
+
+  .title {
+
+    margin-top: 28px;
+
+    font-size: 23px;
+
+  }
+
+
+  .card {
+
+    padding: 18px;
+
+    border-radius: 17px;
+
+  }
+
+
+  .card-icon {
+
+    width: 56px;
+    height: 56px;
+
+    border-radius: 15px;
+
+  }
+
+
+  .card h3 {
+
+    font-size: 18px;
+
+  }
+
+
+  .chat-box {
+
+    right: 8px;
+    left: 8px;
+
+    bottom: 80px;
+
+    border-radius: 18px;
+
+  }
+
+
+  .chat-button {
+
+    right: 14px;
+    bottom: 14px;
+
+    width: 54px;
+    height: 54px;
+
+    border-radius: 17px;
+
+  }
+
+}
+
+
+/* =========================================================
+   NGĂN TRÀN NGANG MOBILE
+========================================================= */
+
+@media (max-width: 900px) {
+
+  html,
+  body {
+
+    max-width: 100%;
+
+    overflow-x: hidden;
+
+  }
+
+
+  .app {
+
+    width: 100%;
+
+    max-width: 100%;
+
+    overflow-x: hidden;
+
+  }
+
+
+  .content > * {
+
+    max-width: 100%;
+
+  }
+
+}
+
+
+
+/* =====================================================
+   RXCLIPHA MOBILE FINAL
+   GIAO DIỆN MOBILE GỌN NHƯ PHARMATD
+   DESKTOP KHÔNG BỊ ẢNH HƯỞNG
+===================================================== */
+
+@media screen and (max-width: 700px) {
+
+  /* ===================================================
+     1. KHUNG APP
+  =================================================== */
+
+  html,
+  body,
+  #root {
+    width: 100% !important;
+    max-width: 100% !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    overflow-x: hidden !important;
+  }
+
+  .app {
+    width: 100% !important;
+    max-width: 100% !important;
+
+    min-height: 100vh;
+
+    overflow-x: hidden !important;
+  }
+
+
+  /* ===================================================
+     2. CONTENT
+  =================================================== */
+
+  .content {
+    width: 100% !important;
+    max-width: 100% !important;
+
+    min-width: 0 !important;
+
+    padding: 0 16px 35px !important;
+
+    margin: 0 !important;
+
+    box-sizing: border-box !important;
+
+    overflow-x: hidden !important;
+  }
+
+
+  /* ===================================================
+     3. HEADER MOBILE
+     Phủ toàn bộ chiều ngang
+  =================================================== */
+
+  .mobile-topbar {
+    display: flex !important;
+
+    position: sticky !important;
+
+    top: 0 !important;
+
+    z-index: 1000 !important;
+
+    width: 100vw !important;
+
+    max-width: 100vw !important;
+
+    height: 62px !important;
+
+    margin-left: -16px !important;
+
+    padding: 0 16px !important;
+
+    box-sizing: border-box !important;
+
+    background: #ffffff !important;
+
+    border-bottom: 1px solid #e6ebf0 !important;
+
+    box-shadow:
+      0 2px 10px rgba(15, 23, 42, .07) !important;
+
+    align-items: center !important;
+
+    justify-content: space-between !important;
+  }
+
+
+  .mobile-topbar-left {
+    display: flex !important;
+
+    align-items: center !important;
+
+    gap: 10px !important;
+
+    min-width: 0 !important;
+  }
+
+
+  .mobile-top-logo {
+    flex: 0 0 auto !important;
+
+    width: 40px !important;
+
+    height: 40px !important;
+
+    border-radius: 12px !important;
+
+    font-size: 15px !important;
+  }
+
+
+  .mobile-top-text {
+    min-width: 0 !important;
+
+    display: flex !important;
+
+    flex-direction: column !important;
+
+    justify-content: center !important;
+  }
+
+
+  .mobile-top-text strong {
+    display: block !important;
+
+    color: #183c63 !important;
+
+    font-size: 17px !important;
+
+    line-height: 1.1 !important;
+
+    white-space: nowrap !important;
+  }
+
+
+  .mobile-top-text span {
+    display: block !important;
+
+    margin-top: 3px !important;
+
+    color: #71839a !important;
+
+    font-size: 10px !important;
+
+    line-height: 1.1 !important;
+
+    white-space: nowrap !important;
+  }
+
+
+  /* ===================================================
+     4. NÚT MENU
+  =================================================== */
+
+  .mobile-menu-button {
+    flex: 0 0 auto !important;
+
+    width: 42px !important;
+
+    height: 42px !important;
+
+    padding: 0 !important;
+
+    border: none !important;
+
+    border-radius: 12px !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+
+    justify-content: center !important;
+
+    background: #eef5ff !important;
+
+    color: #0756a5 !important;
+
+    box-shadow: none !important;
+  }
+
+
+  /* ===================================================
+     5. ẨN HEADER DESKTOP
+  =================================================== */
+
+  .content > header {
+    display: none !important;
+  }
+
+
+  /* ===================================================
+     6. BANNER HOME
+  =================================================== */
+
+  .banner {
+    width: 100% !important;
+
+    min-width: 0 !important;
+
+    min-height: 0 !important;
+
+    height: auto !important;
+
+    margin-top: 16px !important;
+
+    padding: 30px 18px !important;
+
+    box-sizing: border-box !important;
+
+    border-radius: 22px !important;
+
+    overflow: hidden !important;
+  }
+
+
+  .banner h1 {
+    margin: 0 0 8px !important;
+
+    font-size: 30px !important;
+
+    line-height: 1.1 !important;
+
+    white-space: nowrap !important;
+  }
+
+
+  .banner h3 {
+    max-width: 310px !important;
+
+    margin: 0 auto 10px !important;
+
+    font-size: 17px !important;
+
+    line-height: 1.35 !important;
+  }
+
+
+  .banner p {
+    max-width: 310px !important;
+
+    margin: 0 auto !important;
+
+    font-size: 12.5px !important;
+
+    line-height: 1.5 !important;
+  }
+
+
+  /* ===================================================
+     7. HOME - TIÊU ĐỀ SECTION
+  =================================================== */
+
+  .title {
+    margin: 22px 0 14px !important;
+
+    font-size: 22px !important;
+
+    line-height: 1.2 !important;
+
+    color: #243f60 !important;
+  }
+
+
+  /* ===================================================
+     8. HOME - CARD
+  =================================================== */
+
+  .cards {
+    display: flex !important;
+
+    flex-direction: column !important;
+
+    gap: 12px !important;
+
+    width: 100% !important;
+
+    margin: 0 !important;
+  }
+
+
+  .card {
+    width: 100% !important;
+
+    min-width: 0 !important;
+
+    min-height: 124px !important;
+
+    padding: 18px !important;
+
+    box-sizing: border-box !important;
+
+    display: grid !important;
+
+    grid-template-columns: 58px minmax(0, 1fr) !important;
+
+    grid-template-rows: auto auto !important;
+
+    column-gap: 15px !important;
+
+    border-radius: 19px !important;
+  }
+
+
+  .card-icon {
+    grid-column: 1 !important;
+
+    grid-row: 1 / 3 !important;
+
+    align-self: center !important;
+
+    width: 56px !important;
+
+    height: 56px !important;
+
+    margin: 0 !important;
+
+    border-radius: 15px !important;
+  }
+
+
+  .card-icon svg {
+    width: 26px !important;
+
+    height: 26px !important;
+  }
+
+
+  .card h3 {
+    grid-column: 2 !important;
+
+    grid-row: 1 !important;
+
+    margin: 0 0 5px !important;
+
+    font-size: 17px !important;
+
+    line-height: 1.25 !important;
+
+    text-align: left !important;
+  }
+
+
+  .card p {
+    display: none !important;
+  }
+
+
+  .card > span {
+    grid-column: 2 !important;
+
+    grid-row: 2 !important;
+
+    margin: 0 !important;
+
+    padding: 0 !important;
+
+    font-size: 13px !important;
+
+    line-height: 1.2 !important;
+
+    color: #64788e !important;
+  }
+
+
+  /* ===================================================
+     9. NEWS HOME
+  =================================================== */
+
+  .news-banner {
+    width: 100% !important;
+
+    margin-top: 16px !important;
+
+    padding: 16px !important;
+
+    box-sizing: border-box !important;
+
+    border-radius: 19px !important;
+  }
+
+
+  .news-title {
+    margin-bottom: 10px !important;
+  }
+
+
+  .news-title h2 {
+    font-size: 20px !important;
+
+    line-height: 1.2 !important;
+  }
+
+
+  .news-title a {
+    font-size: 12px !important;
+
+    white-space: nowrap !important;
+  }
+
+
+  /* ===================================================
+     10. TRANG TƯƠNG TÁC
+  =================================================== */
+
+  .interaction-page {
+    width: 100% !important;
+
+    max-width: 100% !important;
+
+    min-width: 0 !important;
+
+    margin: 0 !important;
+
+    padding: 0 !important;
+
+    box-sizing: border-box !important;
+  }
+
+
+  /* ---------- TIÊU ĐỀ TRANG ---------- */
+
+  .interaction-page .page-header {
+    width: 100% !important;
+
+    margin: 20px 0 18px !important;
+
+    padding: 0 !important;
+
+    box-sizing: border-box !important;
+  }
+
+
+  .interaction-page .page-header h1 {
+    margin: 0 !important;
+
+    max-width: 100% !important;
+
+    font-size: 30px !important;
+
+    line-height: 1.12 !important;
+
+    letter-spacing: -.5px !important;
+
+    word-break: normal !important;
+
+    overflow-wrap: normal !important;
+  }
+
+
+  .interaction-page .page-header p {
+    margin: 10px 0 0 !important;
+
+    max-width: 100% !important;
+
+    font-size: 14px !important;
+
+    line-height: 1.5 !important;
+
+    color: #64788e !important;
+  }
+
+
+  /* ---------- GRID ---------- */
+
+  .interaction-page .interaction-grid {
+    display: flex !important;
+
+    flex-direction: column !important;
+
+    gap: 14px !important;
+
+    width: 100% !important;
+
+    margin: 0 !important;
+
+    padding: 0 !important;
+  }
+
+
+  /* ---------- CARD TƯƠNG TÁC ---------- */
+
+  .interaction-page .left-card,
+  .interaction-page .right-card {
+    width: 100% !important;
+
+    min-width: 0 !important;
+
+    padding: 20px !important;
+
+    box-sizing: border-box !important;
+
+    border-radius: 20px !important;
+  }
+
+
+  /* ---------- HEADER CARD ---------- */
+
+  .interaction-page .card-header {
+    padding: 0 !important;
+
+    margin: 0 0 16px !important;
+  }
+
+
+  .interaction-page .card-header h2 {
+    margin: 0 0 5px !important;
+
+    font-size: 22px !important;
+
+    line-height: 1.25 !important;
+  }
+
+
+  .interaction-page .card-header p {
+    margin: 0 !important;
+
+    font-size: 14px !important;
+
+    line-height: 1.4 !important;
+
+    color: #64788e !important;
+  }
+
+
+  /* ---------- TAB ---------- */
+
+  .interaction-page .tabs {
+    width: 100% !important;
+
+    display: grid !important;
+
+    grid-template-columns: 1fr 1fr !important;
+
+    gap: 8px !important;
+  }
+
+
+  .interaction-page .tab {
+    min-height: 46px !important;
+
+    padding: 10px 8px !important;
+
+    border-radius: 12px !important;
+
+    font-size: 14px !important;
+  }
+
+
+  /* ---------- SEARCH ---------- */
+
+  .interaction-page .search-box {
+    width: 100% !important;
+
+    min-width: 0 !important;
+
+    box-sizing: border-box !important;
+  }
+
+
+  .interaction-page .search-box input {
+    min-width: 0 !important;
+
+    font-size: 14px !important;
+  }
+
+
+  .interaction-page .add-button {
+    flex-shrink: 0 !important;
+
+    min-width: 82px !important;
+
+    padding: 10px 12px !important;
+
+    font-size: 13px !important;
+  }
+
+
+  /* ---------- SECTION TITLE ---------- */
+
+  .interaction-page .section-title {
+    margin: 18px 0 10px !important;
+
+    font-size: 16px !important;
+  }
+
+
+  /* ---------- GỢI Ý ---------- */
+
+  .interaction-page .hint-box {
+    padding: 12px !important;
+
+    font-size: 13px !important;
+
+    line-height: 1.5 !important;
+  }
+
+
+  /* ---------- RESULT ---------- */
+
+  .interaction-page .result-item {
+    padding: 14px !important;
+
+    border-radius: 14px !important;
+  }
+
+
+  /* ===================================================
+     11. TRANG NEWS / REPORT
+  =================================================== */
+
+  .news-page,
+  .report-page {
+    width: 100% !important;
+
+    max-width: 100% !important;
+
+    min-width: 0 !important;
+
+    box-sizing: border-box !important;
+  }
+
+
+  .news-page h1,
+  .report-page h1 {
+    font-size: 28px !important;
+
+    line-height: 1.15 !important;
+  }
+
+
+  /* ===================================================
+     12. CHAT
+  =================================================== */
+
+  .chat-button {
+    width: 56px !important;
+
+    height: 56px !important;
+
+    right: 15px !important;
+
+    bottom: 15px !important;
+  }
+
+
+  .chat-box {
+    left: 12px !important;
+
+    right: 12px !important;
+
+    bottom: 82px !important;
+
+    width: auto !important;
+
+    max-width: none !important;
+
+    border-radius: 19px !important;
+  }
+
+}
+
+
+/* =====================================================
+   IPHONE NHỎ
+===================================================== */
+
+@media screen and (max-width: 390px) {
+
+  .content {
+    padding-left: 12px !important;
+
+    padding-right: 12px !important;
+  }
+
+
+  .mobile-topbar {
+    width: 100vw !important;
+
+    margin-left: -12px !important;
+
+    padding-left: 12px !important;
+
+    padding-right: 12px !important;
+  }
+
+
+  .banner h1 {
+    font-size: 28px !important;
+  }
+
+
+  .banner h3 {
+    font-size: 16px !important;
+  }
+
+
+  .banner p {
+    font-size: 12px !important;
+  }
+
+
+  .interaction-page .page-header h1 {
+    font-size: 27px !important;
+  }
+
+
+  .interaction-page .card-header h2 {
+    font-size: 20px !important;
+  }
+
+
+  .interaction-page .left-card,
+  .interaction-page .right-card {
+    padding: 17px !important;
+  }
+
+
+  .card {
+    grid-template-columns: 54px minmax(0, 1fr) !important;
+
+    column-gap: 13px !important;
+
+    min-height: 116px !important;
+
+    padding: 16px !important;
+  }
+
+
+  .card-icon {
+    width: 52px !important;
+
+    height: 52px !important;
+  }
+
+
+  .card h3 {
+    font-size: 16px !important;
+  }
+
+}
+
+
+/* =====================================================
+   MOBILE - CHỈNH TYPOGRAPHY + CARD GỌN GÀNG
+   Desktop không bị ảnh hưởng
+===================================================== */
+
+@media screen and (max-width: 700px) {
+
+  /* =========================================
+     BANNER
+  ========================================= */
+
+  .banner h1 {
+    font-size: 28px !important;
+    line-height: 1.1 !important;
+    margin-bottom: 7px !important;
+  }
+
+  .banner h3 {
+    font-size: 14px !important;
+    line-height: 1.25 !important;
+
+    white-space: nowrap !important;
+
+    margin-bottom: 9px !important;
+  }
+
+  .banner p {
+    font-size: 11px !important;
+    line-height: 1.4 !important;
+
+    max-width: 320px !important;
+  }
+
+
+  /* =========================================
+     TIÊU ĐỀ "CÔNG CỤ NỔI BẬT"
+  ========================================= */
+
+  .title {
+    font-size: 20px !important;
+    line-height: 1.2 !important;
+
+    margin-top: 24px !important;
+    margin-bottom: 13px !important;
+  }
+
+
+  /* =========================================
+     CÁC THẺ CÔNG CỤ
+  ========================================= */
+
+  .cards {
+    display: flex !important;
+
+    flex-direction: column !important;
+
+    gap: 12px !important;
+
+    width: 100% !important;
+  }
+
+
+  .card {
+    width: 100% !important;
+
+    min-height: 105px !important;
+
+    height: auto !important;
+
+    padding: 14px !important;
+
+    border-radius: 17px !important;
+
+    box-sizing: border-box !important;
+
+    /* Quan trọng: không kéo các dòng ra xa nhau */
+    align-content: start !important;
+  }
+
+
+  /* =========================================
+     ICON
+  ========================================= */
+
+  .card-icon {
+    width: 48px !important;
+    height: 48px !important;
+
+    border-radius: 13px !important;
+
+    margin: 0 !important;
+  }
+
+  .card-icon svg {
+    width: 23px !important;
+    height: 23px !important;
+  }
+
+
+  /* =========================================
+     TIÊU ĐỀ THẺ
+  ========================================= */
+
+  .card h3 {
+    font-size: 15px !important;
+
+    line-height: 1.2 !important;
+
+    font-weight: 700 !important;
+
+    margin: 0 !important;
+
+    padding: 0 !important;
+
+    /* Không cho tiêu đề rớt xuống dòng */
+    white-space: nowrap !important;
+
+    overflow: hidden !important;
+
+    text-overflow: ellipsis !important;
+  }
+
+
+  /* =========================================
+     MÔ TẢ
+  ========================================= */
+
+  .card p {
+    display: none !important;
+  }
+
+
+  /* =========================================
+     TRUY CẬP NGAY
+  ========================================= */
+
+  .card > span {
+    margin: 3px 0 0 !important;
+
+    padding: 0 !important;
+
+    font-size: 12px !important;
+
+    line-height: 1.2 !important;
+
+    font-weight: 650 !important;
+
+    gap: 4px !important;
+
+    color: #0868b5 !important;
+  }
+
+
+  .card > span svg {
+    width: 15px !important;
+    height: 15px !important;
+  }
+
+}
+
+
+/* =====================================================
+   IPHONE NHỎ
+===================================================== */
+
+@media screen and (max-width: 390px) {
+
+  .banner h1 {
+    font-size: 26px !important;
+  }
+
+  .banner h3 {
+    font-size: 13px !important;
+  }
+
+  .banner p {
+    font-size: 10.5px !important;
+  }
+
+
+  .card {
+    min-height: 98px !important;
+
+    padding: 13px !important;
+  }
+
+
+  .card-icon {
+    width: 45px !important;
+    height: 45px !important;
+  }
+
+
+  .card h3 {
+    font-size: 14px !important;
+  }
+
+
+  .card > span {
+    font-size: 11px !important;
+
+    margin-top: 3px !important;
+  }
+
+}
+
+/* =====================================================
+   MOBILE - CARD SIÊU GỌN
+===================================================== */
+
+@media screen and (max-width: 700px) {
+
+  .card {
+    height: 76px !important;
+    min-height: 76px !important;
+
+    padding: 10px 13px !important;
+
+    display: grid !important;
+
+    grid-template-columns: 46px minmax(0, 1fr) !important;
+
+    grid-template-rows: auto auto !important;
+
+    column-gap: 13px !important;
+
+    align-content: center !important;
+
+    box-sizing: border-box !important;
+
+    border-radius: 16px !important;
+  }
+
+
+  /* ICON */
+
+  .card-icon {
+    width: 44px !important;
+    height: 44px !important;
+
+    margin: 0 !important;
+
+    grid-column: 1 !important;
+    grid-row: 1 / 3 !important;
+
+    align-self: center !important;
+
+    border-radius: 12px !important;
+  }
+
+  .card-icon svg {
+    width: 21px !important;
+    height: 21px !important;
+  }
+
+
+  /* TIÊU ĐỀ */
+
+  .card h3 {
+    grid-column: 2 !important;
+    grid-row: 1 !important;
+
+    align-self: end !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    font-size: 14px !important;
+
+    line-height: 1.15 !important;
+
+    white-space: nowrap !important;
+
+    overflow: hidden !important;
+
+    text-overflow: ellipsis !important;
+  }
+
+
+  /* TRUY CẬP NGAY */
+
+  .card > span {
+    grid-column: 2 !important;
+    grid-row: 2 !important;
+
+    align-self: start !important;
+
+    margin: 2px 0 0 !important;
+
+    padding: 0 !important;
+
+    font-size: 11px !important;
+
+    line-height: 1.1 !important;
+
+    gap: 3px !important;
+  }
+
+  .card > span svg {
+    width: 14px !important;
+    height: 14px !important;
+  }
+
+
+  /* KHOẢNG CÁCH GIỮA CÁC CARD */
+
+  .cards {
+    gap: 9px !important;
+  }
+
+}
+
+
+/* =====================================================
+   IPHONE NHỎ
+===================================================== */
+
+@media screen and (max-width: 390px) {
+
+  .card {
+    height: 72px !important;
+    min-height: 72px !important;
+
+    padding: 9px 12px !important;
+
+    grid-template-columns: 43px minmax(0, 1fr) !important;
+
+    column-gap: 12px !important;
+  }
+
+
+  .card-icon {
+    width: 42px !important;
+    height: 42px !important;
+
+    border-radius: 11px !important;
+  }
+
+
+  .card-icon svg {
+    width: 20px !important;
+    height: 20px !important;
+  }
+
+
+  .card h3 {
+    font-size: 13px !important;
+  }
+
+
+  .card > span {
+    font-size: 10.5px !important;
+
+    margin-top: 2px !important;
+  }
+
+}

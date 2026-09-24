@@ -1,5 +1,15 @@
-import { Routes, Route, NavLink } from "react-router-dom";
-import { useState } from "react";
+import {
+  Routes,
+  Route,
+  NavLink,
+  useLocation,
+} from "react-router-dom";
+
+import {
+  useEffect,
+  useState,
+} from "react";
+
 import "./App.css";
 
 import Home from "./pages/Home";
@@ -24,16 +34,161 @@ import {
   UserRound,
   Hospital,
   HeartPulse,
+  Menu,
 } from "lucide-react";
 
-function App() {
-  const [openChat, setOpenChat] = useState(false);
+
+/* =====================================================
+   MENU
+===================================================== */
+
+const menuItems = [
+  {
+    path: "/",
+    label: "Trang chủ",
+    icon: House,
+    end: true,
+  },
+  {
+    path: "/news",
+    label: "Tin mới",
+    icon: Newspaper,
+  },
+  {
+    path: "/drug-lookup",
+    label: "Tra cứu thuốc",
+    icon: Search,
+  },
+  {
+    path: "/icd10",
+    label: "ICD-10",
+    icon: BookOpen,
+  },
+  {
+    path: "/report",
+    label: "Báo cáo Dược",
+    icon: ClipboardList,
+  },
+  {
+    path: "/interaction",
+    label: "Tương tác thuốc",
+    icon: ArrowLeftRight,
+  },
+  {
+    path: "/drug-substitution",
+    label: "Thay thế thuốc",
+    icon: Pill,
+  },
+  {
+    path: "/allergy",
+    label: "Dị ứng thuốc",
+    icon: Syringe,
+  },
+  {
+    path: "/guidelines",
+    label: "Hướng dẫn điều trị",
+    icon: BookHeart,
+  },
+];
+
+
+/* =====================================================
+   MENU LINK
+===================================================== */
+
+function MenuLink({
+  item,
+  onClick,
+}) {
+
+  const Icon = item.icon;
 
   return (
+    <NavLink
+      to={item.path}
+      end={item.end}
+      onClick={onClick}
+      className={({ isActive }) =>
+        isActive
+          ? "active"
+          : ""
+      }
+    >
+
+      <Icon size={20} />
+
+      <span>
+        {item.label}
+      </span>
+
+    </NavLink>
+  );
+}
+
+
+/* =====================================================
+   APP
+===================================================== */
+
+function App() {
+
+  const [openChat, setOpenChat] =
+    useState(false);
+
+  const [mobileMenuOpen, setMobileMenuOpen] =
+    useState(false);
+
+  const location =
+    useLocation();
+
+
+  /* ===================================================
+     TỰ ĐỘNG ĐÓNG MENU KHI CHUYỂN TRANG
+  =================================================== */
+
+  useEffect(() => {
+
+    setMobileMenuOpen(false);
+
+  }, [location.pathname]);
+
+
+  /* ===================================================
+     KHÓA SCROLL BODY KHI MENU MOBILE MỞ
+  =================================================== */
+
+  useEffect(() => {
+
+    if (mobileMenuOpen) {
+
+      document.body.style.overflow =
+        "hidden";
+
+    } else {
+
+      document.body.style.overflow =
+        "";
+
+    }
+
+    return () => {
+
+      document.body.style.overflow =
+        "";
+
+    };
+
+  }, [mobileMenuOpen]);
+
+
+  return (
+
     <div className="app">
 
+
       {/* =====================================================
-          SIDEBAR
+          DESKTOP SIDEBAR
+          GIỮ NGUYÊN
       ===================================================== */}
 
       <aside className="sidebar">
@@ -45,8 +200,15 @@ function App() {
           </div>
 
           <div>
-            <h2>RxCliPha</h2>
-            <p>Rx Dược lâm sàng</p>
+
+            <h2>
+              RxCliPha
+            </h2>
+
+            <p>
+              Rx Dược lâm sàng
+            </p>
+
           </div>
 
         </div>
@@ -54,117 +216,132 @@ function App() {
 
         <nav>
 
-          {/* Trang chủ */}
-          <NavLink
-            to="/"
-            end
-            className={({ isActive }) =>
-              isActive ? "active" : ""
-            }
-          >
-            <House size={20} />
-            Trang chủ
-          </NavLink>
+          {menuItems.map(
+            (item) => (
 
+              <MenuLink
+                key={item.path}
+                item={item}
+              />
 
-          {/* Tin mới */}
-          <NavLink
-            to="/news"
-            className={({ isActive }) =>
-              isActive
-                ? "menu-item active"
-                : "menu-item"
-            }
-          >
-            <Newspaper size={21} />
-            <span>Tin mới</span>
-          </NavLink>
-
-
-          {/* Tra cứu thuốc */}
-          <NavLink
-            to="/drug-lookup"
-            className={({ isActive }) =>
-              isActive ? "active" : ""
-            }
-          >
-            <Search size={20} />
-            Tra cứu thuốc
-          </NavLink>
-
-
-          {/* ICD-10 */}
-          <NavLink
-            to="/icd10"
-            className={({ isActive }) =>
-              isActive ? "active" : ""
-            }
-          >
-            <BookOpen size={20} />
-            ICD-10
-          </NavLink>
-
-
-          {/* Báo cáo */}
-          <NavLink
-            to="/report"
-            className={({ isActive }) =>
-              isActive ? "active" : ""
-            }
-          >
-            <ClipboardList size={20} />
-            Báo cáo Dược
-          </NavLink>
-
-
-          {/* Tương tác thuốc */}
-          <NavLink
-            to="/interaction"
-            className={({ isActive }) =>
-              isActive ? "active" : ""
-            }
-          >
-            <ArrowLeftRight size={20} />
-            Tương tác thuốc
-          </NavLink>
-
-
-          {/* Thay thế thuốc */}
-          <NavLink
-            to="/drug-substitution"
-            className={({ isActive }) =>
-              isActive ? "active" : ""
-            }
-          >
-            <Pill size={20} />
-            Thay thế thuốc
-          </NavLink>
-
-
-          {/* Dị ứng thuốc */}
-          <NavLink
-            to="/allergy"
-            className={({ isActive }) =>
-              isActive ? "active" : ""
-            }
-          >
-            <Syringe size={20} />
-            Dị ứng thuốc
-          </NavLink>
-
-
-          {/* Hướng dẫn điều trị */}
-          <NavLink
-            to="/guidelines"
-            className={({ isActive }) =>
-              isActive ? "active" : ""
-            }
-          >
-            <BookHeart size={20} />
-            Hướng dẫn điều trị
-          </NavLink>
+            )
+          )}
 
         </nav>
+
+      </aside>
+
+
+      {/* =====================================================
+          MOBILE OVERLAY
+      ===================================================== */}
+
+      {mobileMenuOpen && (
+
+        <div
+          className="mobile-overlay"
+          onClick={() =>
+            setMobileMenuOpen(false)
+          }
+        />
+
+      )}
+
+
+      {/* =====================================================
+          MOBILE SIDEBAR
+      ===================================================== */}
+
+      <aside
+        className={
+          mobileMenuOpen
+            ? "mobile-sidebar mobile-sidebar-open"
+            : "mobile-sidebar"
+        }
+      >
+
+        {/* ================= HEADER ================= */}
+
+        <div className="mobile-sidebar-header">
+
+          <div className="mobile-logo">
+
+            <div className="mobile-logo-icon">
+              <strong>eRx</strong>
+            </div>
+
+            <div>
+
+              <strong>
+                RxCliPha
+              </strong>
+
+              <span>
+                Rx Dược lâm sàng
+              </span>
+
+            </div>
+
+          </div>
+
+
+          <button
+            className="mobile-close-button"
+            onClick={() =>
+              setMobileMenuOpen(false)
+            }
+            aria-label="Đóng menu"
+          >
+
+            <X size={22} />
+
+          </button>
+
+        </div>
+
+
+        {/* ================= MENU ================= */}
+
+        <nav className="mobile-nav">
+
+          {menuItems.map(
+            (item) => (
+
+              <MenuLink
+                key={item.path}
+                item={item}
+                onClick={() =>
+                  setMobileMenuOpen(false)
+                }
+              />
+
+            )
+          )}
+
+        </nav>
+
+
+        {/* ================= FOOTER ================= */}
+
+        <div className="mobile-sidebar-footer">
+
+          <div className="mobile-footer-icon">
+            <HeartPulse size={18} />
+          </div>
+
+          <div>
+
+            <strong>
+              RxCliPha
+            </strong>
+
+            <span>
+              Dược lâm sàng ngoại trú
+            </span>
+
+          </div>
+
+        </div>
 
       </aside>
 
@@ -177,7 +354,50 @@ function App() {
 
 
         {/* =================================================
-            HEADER
+            MOBILE TOP BAR
+        ================================================= */}
+
+        <div className="mobile-topbar">
+
+          <div className="mobile-topbar-left">
+
+            <div className="mobile-top-logo">
+              <strong>eRx</strong>
+            </div>
+
+            <div className="mobile-top-text">
+
+              <strong>
+                RxCliPha
+              </strong>
+
+              <span>
+                Rx Dược lâm sàng
+              </span>
+
+            </div>
+
+          </div>
+
+
+          <button
+            className="mobile-menu-button"
+            onClick={() =>
+              setMobileMenuOpen(true)
+            }
+            aria-label="Mở menu"
+          >
+
+            <Menu size={25} />
+
+          </button>
+
+        </div>
+
+
+        {/* =================================================
+            DESKTOP HEADER
+            GIỮ NGUYÊN
         ================================================= */}
 
         <header>
@@ -192,12 +412,16 @@ function App() {
             <div className="header-card">
 
               <div className="header-icon">
-                <UserRound size={25} />
+
+                <UserRound
+                  size={25}
+                />
+
               </div>
 
               <div className="header-text">
 
-<span>
+                <span>
                   Phát triển bởi
                 </span>
 
@@ -224,7 +448,11 @@ function App() {
             <div className="header-card">
 
               <div className="header-icon">
-                <Hospital size={25} />
+
+                <Hospital
+                  size={25}
+                />
+
               </div>
 
               <div className="header-text">
@@ -243,35 +471,39 @@ function App() {
 
 
             {/* =============================================
-    ĐƯỜNG PHÂN CÁCH
-============================================= */}
+                ĐƯỜNG PHÂN CÁCH
+            ============================================= */}
 
-<div className="header-divider"></div>
+            <div className="header-divider"></div>
 
 
-{/* =============================================
-    MÔ TẢ RXCLIPHA
-============================================= */}
+            {/* =============================================
+                MÔ TẢ RXCLIPHA
+            ============================================= */}
 
-<div className="header-card platform-card">
+            <div className="header-card platform-card">
 
-  <div className="header-icon">
-    <HeartPulse size={30} />
-  </div>
+              <div className="header-icon">
 
-  <div className="header-text">
+                <HeartPulse
+                  size={30}
+                />
 
-    <strong>
-      Nền tảng thông tin thuốc
-    </strong>
+              </div>
 
-    <span>
-      & Dược lâm sàng ngoại trú
-    </span>
+              <div className="header-text">
 
-  </div>
+                <strong>
+                  Nền tảng thông tin thuốc
+                </strong>
 
-</div>
+                <span>
+                  & Dược lâm sàng ngoại trú
+                </span>
+
+              </div>
+
+            </div>
 
           </div>
 
@@ -284,28 +516,21 @@ function App() {
 
         <Routes>
 
-          {/* Trang chủ */}
           <Route
             path="/"
             element={<Home />}
           />
 
-
-          {/* Tương tác thuốc */}
           <Route
             path="/interaction"
             element={<Interaction />}
           />
 
-
-          {/* Báo cáo */}
           <Route
             path="/report"
             element={<Report />}
           />
 
-
-          {/* Tin mới */}
           <Route
             path="/news"
             element={<News />}
@@ -348,15 +573,17 @@ function App() {
             </div>
 
 
-            <X
-              size={20}
-              style={{
-                cursor: "pointer",
-              }}
+            <button
+              className="chat-close-button"
               onClick={() =>
                 setOpenChat(false)
               }
-            />
+              aria-label="Đóng chat"
+            >
+
+              <X size={20} />
+
+            </button>
 
           </div>
 
@@ -431,13 +658,17 @@ function App() {
         onClick={() =>
           setOpenChat(!openChat)
         }
+        aria-label="Mở trợ lý Dược lâm sàng"
       >
 
-        <MessageCircle size={28} />
+        <MessageCircle
+          size={28}
+        />
 
       </button>
 
     </div>
+
   );
 }
 

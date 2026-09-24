@@ -710,14 +710,14 @@ export default function Report() {
 
           <p className="report-login-description">
 
-            Báo cáo Dược lâm sàng ngoại trú
+            Báo cáo Dược lâm sàng
 
           </p>
 
 
           <p className="report-login-note">
 
-            Vui lòng nhập mật khẩu để truy cập báo cáo!
+            Vui lòng nhập mật khẩu để truy cập!
 
           </p>
 
