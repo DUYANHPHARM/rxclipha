@@ -385,3 +385,105 @@
     }
 
 }
+
+
+
+
+
+
+/* =====================================================
+   CANH CHỈNH TRANG BÁO CÁO THEO HEADER
+===================================================== */
+
+/* Toàn bộ trang báo cáo dùng hết chiều ngang */
+.report-page {
+  width: 100%;
+  max-width: none;
+
+  margin: 0;
+  padding: 0;
+
+  box-sizing: border-box;
+}
+
+
+/* =====================================================
+   KHUNG TIÊU ĐỀ BÁO CÁO
+===================================================== */
+
+.report-banner {
+  width: 100%;
+
+  margin-left: 0;
+  margin-right: 0;
+
+  box-sizing: border-box;
+}
+
+
+/* =====================================================
+   THANH CHỌN NĂM
+===================================================== */
+
+.report-toolbar {
+  width: 100%;
+
+  margin-left: 0;
+  margin-right: 0;
+
+  box-sizing: border-box;
+}
+
+
+/* =====================================================
+   KHU VỰC DANH SÁCH THÁNG + PDF
+===================================================== */
+
+.report-layout {
+  width: 100%;
+
+  margin-left: 0;
+  margin-right: 0;
+
+  box-sizing: border-box;
+}
+
+
+/* =====================================================
+   KHUNG DANH SÁCH THÁNG
+===================================================== */
+
+.month-panel {
+  box-sizing: border-box;
+}
+
+
+/* =====================================================
+   KHUNG HIỂN THỊ BÁO CÁO
+===================================================== */
+
+.report-viewer {
+  min-width: 0;
+
+  box-sizing: border-box;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 900px) {
+
+  .report-page {
+    width: 100%;
+    padding: 0;
+  }
+
+  .report-banner,
+  .report-toolbar,
+  .report-layout {
+    width: 100%;
+  }
+
+}

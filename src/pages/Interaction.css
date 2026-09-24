@@ -1012,3 +1012,140 @@
     }
 
 }
+
+
+
+
+
+/* =====================================================
+   FIX CĂN CHỈNH TRANG TƯƠNG TÁC THUỐC
+   Chỉ áp dụng cho Interaction.css
+===================================================== */
+
+.interaction-page {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Tiêu đề thẳng hàng với các trang khác */
+.interaction-page .page-header {
+  width: 100%;
+  margin: 0 0 32px 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Khu vực 2 khung chính */
+.interaction-page .interaction-grid {
+  width: 100%;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1fr)
+    minmax(0, 1fr);
+
+  gap: 34px;
+
+  margin: 0;
+  padding: 0;
+
+  box-sizing: border-box;
+}
+
+/* Hai card chính */
+.interaction-page .left-card,
+.interaction-page .right-card {
+  width: 100%;
+  min-width: 0;
+
+  box-sizing: border-box;
+}
+
+/* Đảm bảo nội dung không làm card bị tràn */
+.interaction-page .left-card *,
+.interaction-page .right-card * {
+  box-sizing: border-box;
+}
+
+/* Header trong card */
+.interaction-page .card-header,
+.interaction-page .result-header {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Thanh mức độ tương tác */
+.interaction-page .severity-bar {
+  width: 100%;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, minmax(0, 1fr));
+
+  box-sizing: border-box;
+}
+
+/* Không để text làm giãn cột */
+.interaction-page .severity {
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+/* Ô nhập liệu */
+.interaction-page .search-box {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Nhóm nút */
+.interaction-page .button-group {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Kết quả */
+.interaction-page .result-item,
+.interaction-page .interaction-result-group {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 1100px) {
+
+  .interaction-page .interaction-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+}
+
+@media (max-width: 700px) {
+
+  .interaction-page .interaction-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .interaction-page .severity-bar {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+}
+
+@media (max-width: 480px) {
+
+  .interaction-page .severity-bar {
+    grid-template-columns: 1fr;
+  }
+
+}

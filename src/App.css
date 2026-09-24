@@ -1216,3 +1216,482 @@ BANNER
     animation:fadeUp .45s ease;
 
 }
+
+/* =====================================================
+   HEADER - RXCLIPHA
+===================================================== */
+
+.header-info {
+  display: flex;
+  align-items: stretch;
+  gap: 14px;
+}
+
+
+/* =====================================================
+   BOX CHUNG
+===================================================== */
+
+.info-box {
+  min-height: 64px;
+
+  padding: 10px 20px;
+
+  display: flex;
+  align-items: center;
+
+  background: #ffffff;
+
+  border: 1px solid #e5eaf2;
+
+  border-radius: 16px;
+
+  box-sizing: border-box;
+
+  box-shadow:
+    0 4px 16px rgba(30, 70, 120, 0.06);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+
+/* =====================================================
+   NỘI DUNG TRONG BOX
+===================================================== */
+
+.info-box-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  line-height: 1.25;
+}
+
+
+/* =====================================================
+   DÒNG NHỎ
+===================================================== */
+
+.info-label {
+  display: block;
+
+  margin-bottom: 4px;
+
+  color: #7b8798;
+
+  font-size: 12px;
+
+  font-weight: 500;
+}
+
+
+/* =====================================================
+   DÒNG CHÍNH
+===================================================== */
+
+.info-box strong {
+  display: block;
+
+  color: #263957;
+
+  font-size: 15px;
+
+  font-weight: 700;
+}
+
+
+/* =====================================================
+   DÒNG PHỤ
+===================================================== */
+
+.info-box small {
+  display: block;
+
+  margin-top: 3px;
+
+  color: #7b8798;
+
+  font-size: 12px;
+
+  font-weight: 500;
+}
+
+
+/* =====================================================
+   Ô 1
+===================================================== */
+
+.developer-box {
+  min-width: 205px;
+}
+
+
+/* =====================================================
+   Ô 2
+===================================================== */
+
+.hospital-box {
+  min-width: 275px;
+}
+
+
+/* =====================================================
+   HIỆU ỨNG HOVER
+===================================================== */
+
+.info-box:hover {
+
+  transform: translateY(-1px);
+
+  border-color: #d5deea;
+
+  box-shadow:
+    0 7px 20px rgba(30, 70, 120, 0.09);
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 900px) {
+
+  .header-info {
+
+    width: 100%;
+
+    flex-direction: column;
+
+    gap: 10px;
+
+  }
+
+  .info-box {
+
+    width: 100%;
+
+  }
+
+  .developer-box,
+  .hospital-box {
+
+    min-width: 0;
+
+  }
+
+
+}
+/* =====================================================
+   RXCLIPHA - HEADER TOP
+===================================================== */
+
+header {
+  width: 100%;
+  margin-bottom: 28px;
+}
+
+
+/* =====================================================
+   HEADER CONTAINER
+===================================================== */
+
+.header-info {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+
+  gap: 22px;
+
+  box-sizing: border-box;
+}
+
+
+/* =====================================================
+   CARD THÔNG TIN
+===================================================== */
+
+.header-card {
+
+  min-width: 360px;
+  height: 80px;
+
+  padding: 0 18px;
+
+  display: flex;
+  align-items: center;
+
+  background: rgba(255, 255, 255, 0.92);
+
+  border: 1px solid #e8edf5;
+
+  border-radius: 18px;
+
+  box-shadow:
+    0 8px 24px rgba(37, 99, 235, 0.06);
+
+  box-sizing: border-box;
+
+}
+
+
+/* =====================================================
+   ICON TRÒN
+===================================================== */
+
+.header-icon {
+
+  width: 50px;
+  height: 50px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-right: 16px;
+
+  background: #e8f2ff;
+
+  border-radius: 50%;
+
+  color: #0879e8;
+
+}
+
+
+/* =====================================================
+   TEXT
+===================================================== */
+
+.header-text {
+
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+
+  line-height: 1.3;
+
+}
+
+
+.header-text strong {
+
+  display: block;
+
+  color: #173b70;
+
+  font-size: 18px;
+
+  font-weight: 700;
+
+  white-space: nowrap;
+
+}
+
+
+.header-text span {
+
+  display: block;
+
+  margin-top: 4px;
+
+  color: #5f789d;
+
+  font-size: 15px;
+
+  font-weight: 500;
+
+  white-space: nowrap;
+
+}
+
+
+/* =====================================================
+   ĐƯỜNG PHÂN CÁCH
+===================================================== */
+
+.header-divider {
+
+  width: 1px;
+
+  height: 52px;
+
+  flex-shrink: 0;
+
+  background: #d8e1ed;
+
+}
+
+
+/* =====================================================
+   PHẦN MÔ TẢ BÊN PHẢI
+===================================================== */
+
+.header-description {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 14px;
+
+  padding-left: 8px;
+
+  flex: 1;
+
+}
+
+
+.header-description-icon {
+
+  flex-shrink: 0;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  color: #1da4d8;
+
+}
+
+
+.header-description strong {
+
+  display: block;
+
+  color: #6982a5;
+
+  font-size: 16px;
+
+  font-style: italic;
+
+  font-weight: 600;
+
+  line-height: 1.35;
+
+  white-space: nowrap;
+
+}
+
+
+.header-description span {
+
+  display: block;
+
+  color: #6982a5;
+
+  font-size: 16px;
+
+  font-style: italic;
+
+  font-weight: 600;
+
+  line-height: 1.35;
+
+}
+
+
+/* =====================================================
+   HOVER
+===================================================== */
+
+.header-card {
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+
+}
+
+
+.header-card:hover {
+
+  transform: translateY(-1px);
+
+  border-color: #d9e5f4;
+
+  box-shadow:
+    0 10px 28px rgba(37, 99, 235, 0.09);
+
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 1250px) {
+
+  .header-info {
+    gap: 14px;
+  }
+
+  .header-card {
+    min-width: 300px;
+  }
+
+  .header-text strong {
+    font-size: 16px;
+  }
+
+  .header-text span {
+    font-size: 13px;
+  }
+
+  .header-description strong,
+  .header-description span {
+    font-size: 14px;
+  }
+
+}
+
+
+@media (max-width: 1000px) {
+
+  .header-info {
+    flex-wrap: wrap;
+  }
+
+  .header-card {
+    min-width: 0;
+    flex: 1;
+  }
+
+  .header-description {
+    flex: 1 1 100%;
+  }
+
+}
+
+
+@media (max-width: 700px) {
+
+  .header-info {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .header-card {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .header-divider {
+    display: none;
+  }
+
+  .header-description {
+    padding-left: 0;
+  }
+
+}
