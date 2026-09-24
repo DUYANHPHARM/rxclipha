@@ -113,7 +113,7 @@ function App() {
             }
           >
             <ClipboardList size={20} />
-            Báo cáo Dược lâm sàng
+            Báo cáo Dược
           </NavLink>
 
 
